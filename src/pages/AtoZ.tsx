@@ -79,7 +79,7 @@ const AtoZ = () => {
               <span className="text-sm">Back</span>
             </Link>
             <Link to="/">
-              <img src={talktobroLogo} alt="TalkToBro" className="h-12" />
+              <img src={talktobroLogo} alt="TalkToBro" className="h-16 md:h-20" />
             </Link>
           </div>
           
