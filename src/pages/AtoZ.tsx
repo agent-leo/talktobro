@@ -1,37 +1,45 @@
 import { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Search, ArrowUp } from 'lucide-react';
+import { ArrowLeft, Search, ArrowUp, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { getEntriesByLetter, getAvailableLetters, GlossaryEntry } from '@/data/glossaryData';
+import { getEntriesByLetter, getAvailableLetters, GlossaryEntry, glossaryEntries } from '@/data/glossaryData';
 import { conversationFlows } from '@/data/conversationFlows';
 
 const AtoZ = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const navigate = useNavigate();
   
   const entriesByLetter = useMemo(() => getEntriesByLetter(), []);
   const availableLetters = useMemo(() => getAvailableLetters(), []);
   
-  // Filter entries based on search
+  // Get unique categories
+  const categories = useMemo(() => {
+    const cats = new Set(glossaryEntries.map(e => e.category));
+    return Array.from(cats).sort();
+  }, []);
+  
+  // Filter entries based on search and category
   const filteredEntries = useMemo(() => {
-    if (!searchQuery.trim()) return entriesByLetter;
-    
-    const query = searchQuery.toLowerCase();
+    const query = searchQuery.toLowerCase().trim();
     const filtered: Record<string, GlossaryEntry[]> = {};
     
     Object.entries(entriesByLetter).forEach(([letter, entries]) => {
-      const matchingEntries = entries.filter(entry => 
-        entry.term.toLowerCase().includes(query) ||
-        entry.description.toLowerCase().includes(query) ||
-        entry.category.toLowerCase().includes(query)
-      );
+      const matchingEntries = entries.filter(entry => {
+        const matchesSearch = !query || 
+          entry.term.toLowerCase().includes(query) ||
+          entry.description.toLowerCase().includes(query) ||
+          entry.category.toLowerCase().includes(query);
+        const matchesCategory = !selectedCategory || entry.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      });
       if (matchingEntries.length > 0) {
         filtered[letter] = matchingEntries;
       }
     });
     
     return filtered;
-  }, [searchQuery, entriesByLetter]);
+  }, [searchQuery, selectedCategory, entriesByLetter]);
   
   const handleEntryClick = (entry: GlossaryEntry) => {
     if (entry.flowId) {
@@ -42,7 +50,11 @@ const AtoZ = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
+  
+  const clearFilters = () => {
+    setSearchQuery('');
+    setSelectedCategory(null);
+  };
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -67,8 +79,33 @@ const AtoZ = () => {
               placeholder="Search for any term..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-secondary/50 border-border/50"
+              className="pl-10 pr-10 bg-secondary/50 border-border/50"
             />
+            {(searchQuery || selectedCategory) && (
+              <button 
+                onClick={clearFilters}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+          
+          {/* Category Filter */}
+          <div className="flex flex-wrap gap-2 mt-3">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+                className={`px-3 py-1 text-xs rounded-full transition-colors ${
+                  selectedCategory === category
+                    ? 'bg-foreground text-background'
+                    : 'bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </div>
         
