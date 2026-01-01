@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Phone, Globe, MessageCircle } from 'lucide-react';
+import talktobroLogo from '@/assets/talktobro-logo.png';
 
 interface Resource {
   name: string;
@@ -158,7 +159,9 @@ const CrisisResources = () => {
               <ArrowLeft className="w-4 h-4" />
               <span className="text-sm">Back</span>
             </Link>
-            <h1 className="font-serif text-xl text-foreground">TalkToBro</h1>
+            <Link to="/">
+              <img src={talktobroLogo} alt="TalkToBro" className="h-8" />
+            </Link>
           </div>
         </div>
       </header>

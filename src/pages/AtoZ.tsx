@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search, ArrowUp, X } from 'lucide-react';
+import talktobroLogo from '@/assets/talktobro-logo.png';
 import { Input } from '@/components/ui/input';
 import { getEntriesByLetter, getAvailableLetters, GlossaryEntry, glossaryEntries } from '@/data/glossaryData';
 import { conversationFlows } from '@/data/conversationFlows';
@@ -77,7 +78,9 @@ const AtoZ = () => {
               <ArrowLeft className="w-4 h-4" />
               <span className="text-sm">Back</span>
             </Link>
-            <h1 className="font-serif text-xl text-foreground">TalkToBro</h1>
+            <Link to="/">
+              <img src={talktobroLogo} alt="TalkToBro" className="h-8" />
+            </Link>
           </div>
           
           {/* Search */}
