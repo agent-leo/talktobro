@@ -144,6 +144,7 @@ export const glossaryEntries: GlossaryEntry[] = [
     term: 'Dunning-Kruger Effect',
     category: 'Cognitive Bias',
     description: 'Beginners overestimating their skill, experts underestimating theirs. Early wins are especially dangerous.',
+    flowId: 'overconfidence',
   },
   
   // E
@@ -167,6 +168,7 @@ export const glossaryEntries: GlossaryEntry[] = [
     term: 'Euphoria',
     category: 'Emotional States',
     description: 'The high after big wins. Often more dangerous than fear because it feels good.',
+    flowId: 'overconfidence',
     aliases: ['Trading high', 'Winner\'s high'],
   },
   {
@@ -182,7 +184,7 @@ export const glossaryEntries: GlossaryEntry[] = [
     term: 'FOMO',
     category: 'Emotional States',
     description: 'Fear of Missing Out. The anxiety that others are profiting while you\'re not in the trade.',
-    flowId: 'control',
+    flowId: 'fomo',
     aliases: ['Fear of missing out'],
   },
   {
@@ -356,7 +358,7 @@ export const glossaryEntries: GlossaryEntry[] = [
     term: 'Overconfidence',
     category: 'Psychology',
     description: 'Overestimating your knowledge, skill, or edge. Often peaks right before a painful lesson.',
-    flowId: 'leverage',
+    flowId: 'overconfidence',
     aliases: ['Hubris'],
   },
   {
@@ -423,7 +425,7 @@ export const glossaryEntries: GlossaryEntry[] = [
     term: 'Revenge Trading',
     category: 'Behavioral Patterns',
     description: 'Trading to recover losses immediately. The market doesn\'t know you\'re trying to get even.',
-    flowId: 'loss',
+    flowId: 'revenge',
     aliases: ['Getting even'],
   },
   {
