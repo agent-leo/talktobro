@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { conversationFlows, FlowStep } from '@/data/conversationFlows';
 import { ArrowLeft } from 'lucide-react';
+import { BreathingCircle } from '@/components/BreathingCircle';
 
 interface Message {
   id: string;
@@ -136,6 +137,9 @@ export function ConversationFlow({ flowId, onBack }: ConversationFlowProps) {
                   <p className="text-foreground text-lg leading-relaxed">
                     {message.content}
                   </p>
+                  {message.stepType === 'pause' && message.content && (
+                    <BreathingCircle />
+                  )}
                 </div>
               ) : (
                 <div className="bg-primary text-primary-foreground rounded-2xl px-5 py-3 max-w-sm">
