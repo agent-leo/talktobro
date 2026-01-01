@@ -117,12 +117,14 @@ const Index = () => {
           {/* Disclaimer */}
           <div className="text-sm text-muted-foreground space-y-3 animate-fade-in-delay-4">
             <p>
-              This is not financial advice. We don't make trading recommendations. 
-              We don't know your situation. We're just here to help you pause.
+              This is not financial advice.<br />
+              I don't make trading recommendations.<br />
+              I don't know your situation.<br />
+              I am just here to help you pause.
             </p>
             <p>
-              If you're experiencing a mental health crisis, please reach out to 
-              a professional or call your local crisis line.
+              If you're experiencing a mental health crisis,<br />
+              please reach out to a professional or call your local crisis line.
             </p>
           </div>
         </div>
