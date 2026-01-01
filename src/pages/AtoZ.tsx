@@ -1,14 +1,23 @@
-import { useState, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search, ArrowUp, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { getEntriesByLetter, getAvailableLetters, GlossaryEntry, glossaryEntries } from '@/data/glossaryData';
 import { conversationFlows } from '@/data/conversationFlows';
 
 const AtoZ = () => {
+  const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const navigate = useNavigate();
+  
+  // Initialize search from URL query param
+  useEffect(() => {
+    const q = searchParams.get('q');
+    if (q) {
+      setSearchQuery(q);
+    }
+  }, [searchParams]);
   
   const entriesByLetter = useMemo(() => getEntriesByLetter(), []);
   const availableLetters = useMemo(() => getAvailableLetters(), []);

@@ -1,12 +1,25 @@
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { ConversationFlow } from '@/components/ConversationFlow';
 import { conversationFlows } from '@/data/conversationFlows';
 
 const Index = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedFlow, setSelectedFlow] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/a-z?q=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      navigate('/a-z');
+    }
+  };
 
   // Handle flow from URL query param
   useEffect(() => {
@@ -77,13 +90,27 @@ const Index = () => {
             ))}
           </div>
 
+          {/* Search Bar */}
+          <div className="mb-8 animate-fade-in-delay-3">
+            <form onSubmit={handleSearch} className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Search terms, feelings, or ideas..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 bg-secondary/30 border-border/50 focus:bg-secondary/50 transition-colors"
+              />
+            </form>
+          </div>
+
           {/* A-Z Link */}
           <div className="mb-16 animate-fade-in-delay-3">
             <Link 
               to="/a-z"
               className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm border-b border-border/50 hover:border-foreground/30 pb-0.5"
             >
-              Browse the A to Z →
+              Browse the full A to Z →
             </Link>
           </div>
 
