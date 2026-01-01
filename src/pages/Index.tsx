@@ -1,16 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ConversationFlow } from '@/components/ConversationFlow';
 import { conversationFlows } from '@/data/conversationFlows';
 
 const Index = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedFlow, setSelectedFlow] = useState<string | null>(null);
+
+  // Handle flow from URL query param
+  useEffect(() => {
+    const flowParam = searchParams.get('flow');
+    if (flowParam && conversationFlows[flowParam]) {
+      setSelectedFlow(flowParam);
+    }
+  }, [searchParams]);
+
+  const handleBack = () => {
+    setSelectedFlow(null);
+    setSearchParams({});
+  };
 
   if (selectedFlow) {
     return (
       <ConversationFlow
         flowId={selectedFlow}
-        onBack={() => setSelectedFlow(null)}
+        onBack={handleBack}
       />
     );
   }
@@ -44,7 +59,7 @@ const Index = () => {
           </div>
 
           {/* Entry Points */}
-          <div className="space-y-4 mb-16 animate-fade-in-delay-2">
+          <div className="space-y-4 mb-8 animate-fade-in-delay-2">
             <p className="text-sm text-muted-foreground uppercase tracking-wide mb-6">
               What brings you here?
             </p>
@@ -60,6 +75,16 @@ const Index = () => {
                 <span className="font-medium">{flow.title}</span>
               </Button>
             ))}
+          </div>
+
+          {/* A-Z Link */}
+          <div className="mb-16 animate-fade-in-delay-3">
+            <Link 
+              to="/a-z"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm border-b border-border/50 hover:border-foreground/30 pb-0.5"
+            >
+              Browse the A to Z →
+            </Link>
           </div>
 
           {/* Disclaimer */}
