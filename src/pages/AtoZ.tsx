@@ -206,7 +206,13 @@ const AtoZ = () => {
       <footer className="px-6 py-8 border-t border-border">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>© 2025 TalkToBro</p>
-          <p>This is not advice. This is a place to pause.</p>
+          <div className="flex items-center gap-4">
+            <Link to="/crisis" className="hover:text-foreground transition-colors">
+              Crisis Resources
+            </Link>
+            <span className="hidden sm:inline">·</span>
+            <span className="hidden sm:inline">A place to pause</span>
+          </div>
         </div>
       </footer>
     </div>

@@ -105,7 +105,13 @@ const Index = () => {
       <footer className="px-6 py-8 border-t border-border">
         <div className="max-w-2xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>© 2025 TalkToBro</p>
-          <p>Anonymous. No data collected. No accounts.</p>
+          <div className="flex items-center gap-4">
+            <Link to="/crisis" className="hover:text-foreground transition-colors">
+              Crisis Resources
+            </Link>
+            <span className="hidden sm:inline">·</span>
+            <span className="hidden sm:inline">No data collected</span>
+          </div>
         </div>
       </footer>
     </div>
