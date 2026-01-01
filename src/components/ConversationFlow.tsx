@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { conversationFlows, FlowStep } from '@/data/conversationFlows';
 import { ArrowLeft } from 'lucide-react';
 import { BreathingCircle } from '@/components/BreathingCircle';
+import { SessionJournal } from '@/components/SessionJournal';
 
 interface Message {
   id: string;
@@ -22,6 +23,7 @@ export function ConversationFlow({ flowId, onBack }: ConversationFlowProps) {
   const [currentStep, setCurrentStep] = useState<FlowStep | null>(null);
   const [isTyping, setIsTyping] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [showJournal, setShowJournal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -98,7 +100,7 @@ export function ConversationFlow({ flowId, onBack }: ConversationFlowProps) {
 
   if (!flow) return null;
 
-  const isComplete = !currentStep && messages.length > 0 && !isTyping;
+  const isComplete = !currentStep && messages.length > 0 && !isTyping && !showJournal;
 
   return (
     <div className="min-h-screen bg-background">
@@ -180,24 +182,48 @@ export function ConversationFlow({ flowId, onBack }: ConversationFlowProps) {
         </div>
       )}
 
-      {/* Complete state */}
-      {isComplete && (
+      {/* Journal prompt - shows first after completion */}
+      {!currentStep && messages.length > 0 && !isTyping && !showJournal && (
         <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-background via-background to-transparent pt-12 pb-8 px-6 animate-fade-in">
-          <div className="max-w-2xl mx-auto flex gap-4">
+          <div className="max-w-2xl mx-auto space-y-4">
             <Button
-              variant="outline"
-              onClick={handleStartOver}
-              className="flex-1"
+              variant="response"
+              onClick={() => setShowJournal(true)}
+              className="w-full"
             >
-              Start over
+              Write a note to myself
             </Button>
-            <Button
-              variant="default"
-              onClick={onBack}
-              className="flex-1"
-            >
-              Back to home
-            </Button>
+            <div className="flex gap-4">
+              <Button
+                variant="outline"
+                onClick={handleStartOver}
+                className="flex-1"
+              >
+                Start over
+              </Button>
+              <Button
+                variant="default"
+                onClick={onBack}
+                className="flex-1"
+              >
+                Back to home
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Journal input */}
+      {showJournal && (
+        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-background via-background to-transparent pt-12 pb-8 px-6">
+          <div className="max-w-2xl mx-auto">
+            <SessionJournal 
+              flowId={flowId} 
+              onClose={() => {
+                setShowJournal(false);
+                onBack();
+              }} 
+            />
           </div>
         </div>
       )}
