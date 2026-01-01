@@ -54,7 +54,7 @@ const Index = () => {
             <img 
               src={talktobroLogo} 
               alt="TalkToBro" 
-              className="h-12 md:h-14 mb-4"
+              className="h-20 md:h-28 mb-4"
             />
             <p className="text-muted-foreground text-lg">
               A place to pause before you trade.
