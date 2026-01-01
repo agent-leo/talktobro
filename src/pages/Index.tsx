@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
+import talktobroLogo from '@/assets/talktobro-logo.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConversationFlow } from '@/components/ConversationFlow';
@@ -50,9 +51,11 @@ const Index = () => {
         <div className="max-w-2xl mx-auto w-full">
           {/* Logo / Title */}
           <div className="mb-16 animate-fade-in">
-            <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-2">
-              TalkToBro
-            </h1>
+            <img 
+              src={talktobroLogo} 
+              alt="TalkToBro" 
+              className="h-12 md:h-14 mb-4"
+            />
             <p className="text-muted-foreground text-lg">
               A place to pause before you trade.
             </p>
