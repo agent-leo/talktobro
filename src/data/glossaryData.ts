@@ -10,6 +10,20 @@ export interface GlossaryEntry {
 export const glossaryEntries: GlossaryEntry[] = [
   // A
   {
+    id: 'action-bias',
+    term: 'Action Bias',
+    category: 'Psychology',
+    description: 'The tendency to prefer doing something over doing nothing, even when inaction is better. Leads to overtrading.',
+    flowId: 'control',
+  },
+  {
+    id: 'anchoring',
+    term: 'Anchoring',
+    category: 'Cognitive Bias',
+    description: 'Fixating on a specific price or number. "It was at $100, so it\'s cheap at $80" — ignoring new information.',
+    flowId: 'loss',
+  },
+  {
     id: 'averaging-down',
     term: 'Averaging Down',
     category: 'Position Management',
@@ -23,6 +37,12 @@ export const glossaryEntries: GlossaryEntry[] = [
     description: 'Over-analyzing to the point of inaction. Sometimes a way to avoid the anxiety of actually trading.',
     aliases: ['Overthinking'],
   },
+  {
+    id: 'availability-heuristic',
+    term: 'Availability Heuristic',
+    category: 'Cognitive Bias',
+    description: 'Judging probability by how easily examples come to mind. Recent wins feel more common than they are.',
+  },
   
   // B
   {
@@ -31,6 +51,14 @@ export const glossaryEntries: GlossaryEntry[] = [
     category: 'Loss Management',
     description: 'Holding onto a losing position for too long, hoping it will return to entry price.',
     flowId: 'loss',
+  },
+  {
+    id: 'bandwagon-effect',
+    term: 'Bandwagon Effect',
+    category: 'Social Psychology',
+    description: 'Following the crowd because everyone else is doing it. "Everyone\'s buying, so it must be good."',
+    flowId: 'control',
+    aliases: ['Herd mentality', 'Following the crowd'],
   },
   {
     id: 'blown-account',
@@ -47,6 +75,14 @@ export const glossaryEntries: GlossaryEntry[] = [
     description: 'Trading because you need stimulation, not because there\'s opportunity.',
     flowId: 'control',
     aliases: ['Trading for action'],
+  },
+  {
+    id: 'breakeven-obsession',
+    term: 'Breakeven Obsession',
+    category: 'Psychology',
+    description: 'Desperate to exit at entry price rather than accept a smaller loss. Often leads to bigger losses.',
+    flowId: 'loss',
+    aliases: ['Getting back to even'],
   },
   
   // C
@@ -65,8 +101,29 @@ export const glossaryEntries: GlossaryEntry[] = [
     description: 'Unable to stop looking at charts or P&L. Often masking anxiety, not gathering information.',
     flowId: 'control',
   },
+  {
+    id: 'confirmation-bias',
+    term: 'Confirmation Bias',
+    category: 'Cognitive Bias',
+    description: 'Only seeing evidence that supports your existing position. Ignoring red flags because you\'re already in.',
+    flowId: 'loss',
+  },
+  {
+    id: 'cognitive-dissonance',
+    term: 'Cognitive Dissonance',
+    category: 'Psychology',
+    description: 'The discomfort of holding conflicting beliefs. "I\'m a good trader but I keep losing."',
+    flowId: 'stuck',
+  },
   
   // D
+  {
+    id: 'disposition-effect',
+    term: 'Disposition Effect',
+    category: 'Psychology',
+    description: 'Selling winners too early and holding losers too long. One of the most documented trading biases.',
+    flowId: 'loss',
+  },
   {
     id: 'drawdown',
     term: 'Drawdown',
@@ -82,8 +139,29 @@ export const glossaryEntries: GlossaryEntry[] = [
     description: 'Refusing to accept a loss or mistake. The mind\'s way of protecting the ego.',
     flowId: 'loss',
   },
+  {
+    id: 'dunning-kruger',
+    term: 'Dunning-Kruger Effect',
+    category: 'Cognitive Bias',
+    description: 'Beginners overestimating their skill, experts underestimating theirs. Early wins are especially dangerous.',
+  },
   
   // E
+  {
+    id: 'endowment-effect',
+    term: 'Endowment Effect',
+    category: 'Cognitive Bias',
+    description: 'Overvaluing what you already own. Your position isn\'t special just because it\'s yours.',
+    flowId: 'loss',
+  },
+  {
+    id: 'escalation-of-commitment',
+    term: 'Escalation of Commitment',
+    category: 'Psychology',
+    description: 'Investing more in a failing course of action to justify past decisions. "I\'ve come this far..."',
+    flowId: 'loss',
+    aliases: ['Commitment bias'],
+  },
   {
     id: 'euphoria',
     term: 'Euphoria',
@@ -108,6 +186,12 @@ export const glossaryEntries: GlossaryEntry[] = [
     aliases: ['Fear of missing out'],
   },
   {
+    id: 'framing-effect',
+    term: 'Framing Effect',
+    category: 'Cognitive Bias',
+    description: 'Being influenced by how information is presented. A "90% success rate" feels different from "10% failure rate."',
+  },
+  {
     id: 'frustration',
     term: 'Frustration',
     category: 'Emotional States',
@@ -116,6 +200,14 @@ export const glossaryEntries: GlossaryEntry[] = [
   },
   
   // G
+  {
+    id: 'gamblers-fallacy',
+    term: 'Gambler\'s Fallacy',
+    category: 'Cognitive Bias',
+    description: 'Believing past events affect independent future outcomes. "I\'ve lost 5 in a row, I\'m due for a win."',
+    flowId: 'control',
+    aliases: ['Monte Carlo fallacy'],
+  },
   {
     id: 'gambling-mindset',
     term: 'Gambling Mindset',
@@ -133,6 +225,13 @@ export const glossaryEntries: GlossaryEntry[] = [
   
   // H
   {
+    id: 'hindsight-bias',
+    term: 'Hindsight Bias',
+    category: 'Cognitive Bias',
+    description: '"I knew it would happen." Overestimating your ability to predict after the fact.',
+    aliases: ['Knew-it-all-along effect'],
+  },
+  {
     id: 'hopium',
     term: 'Hopium',
     category: 'Emotional States',
@@ -140,8 +239,23 @@ export const glossaryEntries: GlossaryEntry[] = [
     flowId: 'loss',
     aliases: ['Holding and hoping'],
   },
+  {
+    id: 'hot-hand-fallacy',
+    term: 'Hot Hand Fallacy',
+    category: 'Cognitive Bias',
+    description: 'Believing a winning streak means more wins are coming. Success doesn\'t guarantee future success.',
+    flowId: 'leverage',
+    aliases: ['Hot streak'],
+  },
   
   // I
+  {
+    id: 'illusion-of-control',
+    term: 'Illusion of Control',
+    category: 'Cognitive Bias',
+    description: 'Believing you can influence random outcomes. The market doesn\'t care about your rituals.',
+    flowId: 'control',
+  },
   {
     id: 'impulse-trading',
     term: 'Impulse Trading',
@@ -149,6 +263,13 @@ export const glossaryEntries: GlossaryEntry[] = [
     description: 'Entering trades without a plan. The click happens before the thought.',
     flowId: 'control',
     aliases: ['Impulsive entries'],
+  },
+  {
+    id: 'information-overload',
+    term: 'Information Overload',
+    category: 'Decision Making',
+    description: 'Too many indicators, too many sources, too much noise. More data doesn\'t mean better decisions.',
+    aliases: ['Analysis overload'],
   },
   
   // L
@@ -184,8 +305,29 @@ export const glossaryEntries: GlossaryEntry[] = [
     description: 'Doubling down after each loss. Mathematically guaranteed to fail eventually.',
     flowId: 'leverage',
   },
+  {
+    id: 'mental-accounting',
+    term: 'Mental Accounting',
+    category: 'Cognitive Bias',
+    description: 'Treating money differently based on its source. "House money" feels less real than your deposit.',
+    flowId: 'leverage',
+    aliases: ['House money effect'],
+  },
   
   // N
+  {
+    id: 'narrative-fallacy',
+    term: 'Narrative Fallacy',
+    category: 'Cognitive Bias',
+    description: 'Creating stories to explain random price movements. The market doesn\'t need a "reason" to move.',
+  },
+  {
+    id: 'negativity-bias',
+    term: 'Negativity Bias',
+    category: 'Psychology',
+    description: 'Losses and negative events stick more than wins. One bad trade can overshadow ten good ones.',
+    flowId: 'loss',
+  },
   {
     id: 'numbness',
     term: 'Numbness',
@@ -196,6 +338,27 @@ export const glossaryEntries: GlossaryEntry[] = [
   },
   
   // O
+  {
+    id: 'optimism-bias',
+    term: 'Optimism Bias',
+    category: 'Cognitive Bias',
+    description: 'Believing you\'re less likely to experience negative events. "That won\'t happen to me."',
+    flowId: 'leverage',
+  },
+  {
+    id: 'outcome-bias',
+    term: 'Outcome Bias',
+    category: 'Cognitive Bias',
+    description: 'Judging a decision by its result, not its quality. A bad trade can make money; a good trade can lose.',
+  },
+  {
+    id: 'overconfidence',
+    term: 'Overconfidence',
+    category: 'Psychology',
+    description: 'Overestimating your knowledge, skill, or edge. Often peaks right before a painful lesson.',
+    flowId: 'leverage',
+    aliases: ['Hubris'],
+  },
   {
     id: 'overtrading',
     term: 'Overtrading',
@@ -215,6 +378,12 @@ export const glossaryEntries: GlossaryEntry[] = [
     aliases: ['Panic exit', 'Capitulation'],
   },
   {
+    id: 'peak-end-rule',
+    term: 'Peak-End Rule',
+    category: 'Psychology',
+    description: 'Remembering experiences by their peaks and endings. One big win can mask a month of poor trading.',
+  },
+  {
     id: 'perfectionism',
     term: 'Perfectionism',
     category: 'Psychology',
@@ -227,15 +396,35 @@ export const glossaryEntries: GlossaryEntry[] = [
     description: 'The feeling that you need to make something happen. Often comes from outside trading.',
     flowId: 'leverage',
   },
+  {
+    id: 'probability-neglect',
+    term: 'Probability Neglect',
+    category: 'Cognitive Bias',
+    description: 'Ignoring actual odds when emotions are high. Fear or hope override rational assessment.',
+  },
   
   // R
+  {
+    id: 'recency-bias',
+    term: 'Recency Bias',
+    category: 'Cognitive Bias',
+    description: 'Overweighting recent events and underweighting older data. Last week feels more real than last year.',
+    flowId: 'control',
+    aliases: ['Recency effect'],
+  },
+  {
+    id: 'representativeness-heuristic',
+    term: 'Representativeness Heuristic',
+    category: 'Cognitive Bias',
+    description: 'Judging probability by similarity to a pattern. "This looks like the last breakout" — but it might not be.',
+  },
   {
     id: 'revenge-trading',
     term: 'Revenge Trading',
     category: 'Behavioral Patterns',
     description: 'Trading to recover losses immediately. The market doesn\'t know you\'re trying to get even.',
     flowId: 'loss',
-    aliases: ['Revenge trading', 'Getting even'],
+    aliases: ['Getting even'],
   },
   {
     id: 'regret',
@@ -243,6 +432,12 @@ export const glossaryEntries: GlossaryEntry[] = [
     category: 'Emotional States',
     description: 'Replaying trades that didn\'t work. Useful for learning, destructive when it loops.',
     flowId: 'loss',
+  },
+  {
+    id: 'regret-aversion',
+    term: 'Regret Aversion',
+    category: 'Psychology',
+    description: 'Avoiding decisions to avoid potential regret. Not trading to avoid feeling bad about losing.',
   },
   {
     id: 'risk-of-ruin',
@@ -253,6 +448,21 @@ export const glossaryEntries: GlossaryEntry[] = [
   },
   
   // S
+  {
+    id: 'selective-perception',
+    term: 'Selective Perception',
+    category: 'Cognitive Bias',
+    description: 'Seeing what you expect to see. Bullish? You\'ll find bullish signals everywhere.',
+    flowId: 'loss',
+    aliases: ['Cherry picking'],
+  },
+  {
+    id: 'self-attribution-bias',
+    term: 'Self-Attribution Bias',
+    category: 'Psychology',
+    description: 'Wins are skill, losses are bad luck. Protects the ego but prevents learning.',
+    flowId: 'stuck',
+  },
   {
     id: 'shame',
     term: 'Shame',
@@ -268,6 +478,13 @@ export const glossaryEntries: GlossaryEntry[] = [
     flowId: 'leverage',
   },
   {
+    id: 'status-quo-bias',
+    term: 'Status Quo Bias',
+    category: 'Psychology',
+    description: 'Preference for the current state of affairs. Staying in a bad position because change feels risky.',
+    flowId: 'stuck',
+  },
+  {
     id: 'stuck',
     term: 'Stuck',
     category: 'Emotional States',
@@ -277,11 +494,17 @@ export const glossaryEntries: GlossaryEntry[] = [
   },
   {
     id: 'sunk-cost',
-    term: 'Sunk Cost',
+    term: 'Sunk Cost Fallacy',
     category: 'Psychology',
     description: 'Holding because of what you\'ve already lost, not because of what might happen next.',
     flowId: 'loss',
-    aliases: ['Sunk cost fallacy'],
+    aliases: ['Sunk cost'],
+  },
+  {
+    id: 'survivorship-bias',
+    term: 'Survivorship Bias',
+    category: 'Cognitive Bias',
+    description: 'Only seeing the winners. The 10x trader on Twitter is visible; the thousands who blew up are silent.',
   },
   
   // T
@@ -293,6 +516,13 @@ export const glossaryEntries: GlossaryEntry[] = [
     flowId: 'control',
     aliases: ['Tilting', 'On tilt'],
   },
+  {
+    id: 'traders-ruin',
+    term: 'Trader\'s Ruin',
+    category: 'Risk',
+    description: 'The mathematical certainty of going broke with negative expected value. No money management saves a losing system.',
+    flowId: 'leverage',
+  },
   
   // U
   {
@@ -302,6 +532,13 @@ export const glossaryEntries: GlossaryEntry[] = [
     description: 'The feeling that you must act now. Almost always a signal to slow down instead.',
     flowId: 'loss',
   },
+  {
+    id: 'unit-bias',
+    term: 'Unit Bias',
+    category: 'Cognitive Bias',
+    description: 'Preferring whole units. Buying 1 BTC feels better than 0.7 BTC, regardless of correct sizing.',
+    flowId: 'leverage',
+  },
   
   // W
   {
@@ -310,6 +547,22 @@ export const glossaryEntries: GlossaryEntry[] = [
     category: 'Physical States',
     description: 'Body in high alert, can\'t sit still. Your nervous system asking for something other than trading.',
     flowId: 'leverage',
+  },
+  {
+    id: 'wishful-thinking',
+    term: 'Wishful Thinking',
+    category: 'Psychology',
+    description: 'Believing something because you want it to be true. The position is red but you see green.',
+    flowId: 'loss',
+    aliases: ['Magical thinking'],
+  },
+  
+  // Z
+  {
+    id: 'zero-sum-thinking',
+    term: 'Zero-Sum Thinking',
+    category: 'Psychology',
+    description: 'Viewing trading as pure competition. Someone else\'s win doesn\'t have to be your loss.',
   },
 ];
 
