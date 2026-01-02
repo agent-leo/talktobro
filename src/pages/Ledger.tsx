@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Play, Pause, Trash2, Loader2, Mic } from 'lucide-react';
+import { Play, Pause, Trash2, Loader2, Mic, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -44,6 +44,7 @@ const Ledger = () => {
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [retryingId, setRetryingId] = useState<string | null>(null);
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const navigate = useNavigate();
@@ -157,6 +158,77 @@ const Ledger = () => {
     }
 
     setDeleteId(null);
+  };
+
+  const retryProcessing = async (log: VoiceLog) => {
+    if (!log.audio_url) return;
+    
+    setRetryingId(log.id);
+    
+    try {
+      // Get the audio file from storage
+      const { data: downloadData, error: downloadError } = await supabase.storage
+        .from('voice-recordings')
+        .download(log.audio_url);
+      
+      if (downloadError || !downloadData) {
+        throw new Error('Could not download audio file');
+      }
+      
+      // Convert blob to base64
+      const reader = new FileReader();
+      reader.readAsDataURL(downloadData);
+      
+      reader.onloadend = async () => {
+        const base64Audio = (reader.result as string).split(',')[1];
+        
+        // Call edge function
+        const { data: result, error: processError } = await supabase.functions
+          .invoke('process-voice-log', {
+            body: {
+              audio: base64Audio,
+              voiceLogId: log.id
+            }
+          });
+        
+        if (processError) {
+          console.error('Processing error:', processError);
+          toast({
+            title: "Processing failed",
+            description: processError.message || "Could not process the recording",
+            variant: "destructive"
+          });
+          setRetryingId(null);
+          return;
+        }
+        
+        // Refresh the logs to show updated data
+        await fetchLogs();
+        toast({
+          title: "Processing complete",
+          description: "Your reflection is ready"
+        });
+        setRetryingId(null);
+      };
+      
+      reader.onerror = () => {
+        toast({
+          title: "Error",
+          description: "Failed to read audio file",
+          variant: "destructive"
+        });
+        setRetryingId(null);
+      };
+      
+    } catch (err) {
+      console.error('Retry error:', err);
+      toast({
+        title: "Error",
+        description: "Failed to reprocess recording",
+        variant: "destructive"
+      });
+      setRetryingId(null);
+    }
   };
 
   const formatDate = (dateStr: string) => {
@@ -292,11 +364,33 @@ const Ledger = () => {
                   </div>
                 )}
 
-                {/* Processing indicator */}
+                {/* Processing indicator with retry button */}
                 {!log.reflection_summary && !log.transcript && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Loader2 className="w-3 h-3 animate-spin" />
-                    Processing...
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      {retryingId === log.id ? (
+                        <>
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                          Reprocessing...
+                        </>
+                      ) : (
+                        <>
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                          Processing...
+                        </>
+                      )}
+                    </div>
+                    {retryingId !== log.id && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => retryProcessing(log)}
+                        className="text-xs gap-1"
+                      >
+                        <RefreshCw className="w-3 h-3" />
+                        Retry
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>

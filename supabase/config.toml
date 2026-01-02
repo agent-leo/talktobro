@@ -1,1 +1,4 @@
 project_id = "savyfnvkjnfmqqtjjnci"
+
+[functions.process-voice-log]
+verify_jwt = true
