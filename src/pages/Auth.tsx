@@ -23,9 +23,27 @@ const Auth = () => {
   const [otp, setOtp] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { user, loading, signIn, signInWithPhone, verifyOtp } = useAuth();
+  const { user, loading, signIn, signInWithPhone, verifyOtp, signInAnonymously } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const handleGuestSignIn = async () => {
+    setIsSubmitting(true);
+    setError(null);
+
+    const { error } = await signInAnonymously();
+
+    if (error) {
+      setError(error.message);
+      toast({
+        title: "Something went wrong",
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+
+    setIsSubmitting(false);
+  };
 
   // Redirect if already logged in
   useEffect(() => {
@@ -267,6 +285,33 @@ const Auth = () => {
                   ? "We'll send you a 6-digit code to verify your number."
                   : "Magic link sent to your inbox. No password needed."}
               </p>
+
+              {/* Divider */}
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-border" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">or</span>
+                </div>
+              </div>
+
+              {/* Guest sign-in */}
+              <Button 
+                variant="outline"
+                onClick={handleGuestSignIn}
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Signing in...
+                  </>
+                ) : (
+                  'Continue as Guest'
+                )}
+              </Button>
             </>
           )}
 

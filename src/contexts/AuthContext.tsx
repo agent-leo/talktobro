@@ -10,6 +10,7 @@ interface AuthContextType {
   signInWithPhone: (phone: string) => Promise<{ error: Error | null }>;
   verifyOtp: (phone: string, token: string) => Promise<{ error: Error | null }>;
   signInWithGoogle: () => Promise<{ error: Error | null }>;
+  signInAnonymously: () => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -84,12 +85,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error };
   };
 
+  const signInAnonymously = async () => {
+    const { error } = await supabase.auth.signInAnonymously();
+    return { error };
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signIn, signInWithPhone, verifyOtp, signInWithGoogle, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, signIn, signInWithPhone, verifyOtp, signInWithGoogle, signInAnonymously, signOut }}>
       {children}
     </AuthContext.Provider>
   );
