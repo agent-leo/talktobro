@@ -56,13 +56,13 @@ const Index = () => {
         <div className="max-w-2xl mx-auto w-full">
           {/* Logo / Title */}
           <div className="mb-16 animate-fade-in">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-4 group cursor-default">
               <img 
                 src={talktobroLogo} 
                 alt="TalkToBro" 
-                className="h-16 md:h-20"
+                className="h-16 md:h-20 transition-transform duration-300 group-hover:scale-110"
               />
-              <span className="font-serif text-3xl md:text-4xl text-foreground">TalkToBro</span>
+              <span className="font-serif text-3xl md:text-4xl text-foreground transition-colors duration-300 group-hover:text-accent">TalkToBro</span>
             </div>
             <p className="text-muted-foreground text-lg">
               A place to pause before you trade.
