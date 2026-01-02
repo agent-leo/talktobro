@@ -95,23 +95,27 @@ export function VoiceRecorder({ trigger, onComplete, onCancel }: VoiceRecorderPr
 
   const handleRecordingComplete = async (blob: Blob) => {
     if (!user) return;
-    
+
     setIsProcessing(true);
-    
+
     try {
+      // Use a matching extension for the recorded MIME type
+      const mime = blob.type || 'audio/webm';
+      const ext = mime.includes('mp4') ? 'mp4' : 'webm';
+
       // Generate unique filename
-      const filename = `${user.id}/${Date.now()}.webm`;
-      
+      const filename = `${user.id}/${Date.now()}.${ext}`;
+
       // Upload to storage
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from('voice-recordings')
         .upload(filename, blob, {
-          contentType: blob.type,
-          upsert: false
+          contentType: mime,
+          upsert: false,
         });
-      
+
       if (uploadError) throw uploadError;
-      
+
       // Create voice log entry
       const { data: logData, error: logError } = await supabase
         .from('voice_logs')
@@ -119,45 +123,38 @@ export function VoiceRecorder({ trigger, onComplete, onCancel }: VoiceRecorderPr
           user_id: user.id,
           trigger_type: trigger,
           audio_url: uploadData.path,
-          duration_seconds: duration
+          duration_seconds: duration,
         })
         .select()
         .single();
-      
+
       if (logError) throw logError;
-      
-      // Convert blob to base64 for transcription
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = async () => {
-        const base64Audio = (reader.result as string).split(',')[1];
-        
-        // Call edge function for transcription and reflection
-        const { data: transcriptData, error: transcriptError } = await supabase.functions
-          .invoke('process-voice-log', {
-            body: { 
-              audio: base64Audio,
-              voiceLogId: logData.id
-            }
-          });
-        
-        if (transcriptError) {
-          console.error('Transcription error:', transcriptError);
-          toast({
-            title: "Recording saved",
-            description: "Transcription is processing in the background.",
-          });
-          onComplete();
-          return;
+
+      // Trigger backend processing (downloads audio from storage; avoids base64 payload limits)
+      const { data: transcriptData, error: transcriptError } = await supabase.functions.invoke(
+        'process-voice-log',
+        {
+          body: {
+            voiceLogId: logData.id,
+          },
         }
-        
-        if (transcriptData?.reflection) {
-          setReflection(transcriptData.reflection);
-        } else {
-          onComplete();
-        }
-      };
-      
+      );
+
+      if (transcriptError) {
+        console.error('Transcription error:', transcriptError);
+        toast({
+          title: 'Recording saved',
+          description: 'Transcription is processing in the background.',
+        });
+        onComplete();
+        return;
+      }
+
+      if (transcriptData?.reflection) {
+        setReflection(transcriptData.reflection);
+      } else {
+        onComplete();
+      }
     } catch (err) {
       console.error('Failed to save recording:', err);
       setError('Failed to save your recording. Please try again.');

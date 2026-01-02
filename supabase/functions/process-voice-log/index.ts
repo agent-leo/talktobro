@@ -48,57 +48,154 @@ serve(async (req) => {
   }
 
   try {
-    const { audio, voiceLogId } = await req.json();
-    
-    if (!audio || !voiceLogId) {
-      throw new Error('Missing audio data or voiceLogId');
+    const body = await req.json().catch(() => ({}));
+    const voiceLogId: string | undefined = body.voiceLogId;
+    const audioBase64: string | undefined = body.audio; // legacy payload
+
+    if (!voiceLogId) {
+      return new Response(JSON.stringify({ error: 'Missing voiceLogId' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
     if (!openAIApiKey) {
-      throw new Error('OpenAI API key not configured');
+      return new Response(JSON.stringify({ error: 'OpenAI API key not configured' }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
-    console.log(`Processing voice log: ${voiceLogId}`);
+    if (!supabaseUrl || !supabaseServiceKey) {
+      return new Response(JSON.stringify({ error: 'Backend not configured' }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
 
-    // Create Supabase client
-    const supabase = createClient(supabaseUrl!, supabaseServiceKey!);
+    const authHeader = req.headers.get('Authorization') ?? '';
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
 
-    // Process audio in chunks
-    const binaryAudio = processBase64Chunks(audio);
-    
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY');
+    if (!supabaseAnonKey) {
+      return new Response(JSON.stringify({ error: 'Backend not configured' }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    console.log(`[process-voice-log] start voiceLogId=${voiceLogId}`);
+
+    // Client that respects RLS for ownership check
+    const supabaseUser = createClient(supabaseUrl, supabaseAnonKey, {
+      global: {
+        headers: {
+          Authorization: authHeader,
+        },
+      },
+    });
+
+    const { data: logRow, error: logReadError } = await supabaseUser
+      .from('voice_logs')
+      .select('id, audio_url')
+      .eq('id', voiceLogId)
+      .single();
+
+    if (logReadError || !logRow) {
+      console.error('[process-voice-log] voice log not found or not accessible', logReadError);
+      return new Response(JSON.stringify({ error: 'Voice log not found' }), {
+        status: 404,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Service client for storage download + DB update
+    const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Prefer downloading from storage (avoids base64 body limits). Keep base64 fallback for legacy callers.
+    let audioBytes: Uint8Array;
+    let mimeType = 'application/octet-stream';
+    let fileExt = 'webm';
+
+    if (logRow.audio_url) {
+      console.log(`[process-voice-log] downloading audio from storage path=${logRow.audio_url}`);
+      const { data: audioBlob, error: dlError } = await supabaseService.storage
+        .from('voice-recordings')
+        .download(logRow.audio_url);
+
+      if (dlError || !audioBlob) {
+        console.error('[process-voice-log] storage download failed', dlError);
+        return new Response(JSON.stringify({ error: 'Could not download audio file' }), {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+
+      mimeType = audioBlob.type || mimeType;
+      if (mimeType.includes('mp4')) fileExt = 'mp4';
+      else if (mimeType.includes('mpeg')) fileExt = 'mp3';
+      else if (mimeType.includes('ogg')) fileExt = 'ogg';
+      else if (mimeType.includes('wav')) fileExt = 'wav';
+      else if (mimeType.includes('webm')) fileExt = 'webm';
+
+      const buf = await audioBlob.arrayBuffer();
+      audioBytes = new Uint8Array(buf);
+      console.log(`[process-voice-log] downloaded bytes=${audioBytes.length} mime=${mimeType}`);
+    } else if (audioBase64) {
+      console.log('[process-voice-log] no audio_url found; falling back to base64 payload');
+      audioBytes = processBase64Chunks(audioBase64);
+      mimeType = 'audio/webm';
+      fileExt = 'webm';
+    } else {
+      return new Response(JSON.stringify({ error: 'Missing audio (no audio_url and no audio payload)' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     // Prepare form data for Whisper
     const formData = new FormData();
-    const blob = new Blob([binaryAudio], { type: 'audio/webm' });
-    formData.append('file', blob, 'audio.webm');
+    const audioArrayBuffer = audioBytes.buffer.slice(
+      audioBytes.byteOffset,
+      audioBytes.byteOffset + audioBytes.byteLength,
+    );
+    const audioBlob = new Blob([audioArrayBuffer], { type: mimeType });
+    formData.append('file', audioBlob, `audio.${fileExt}`);
     formData.append('model', 'whisper-1');
 
-    console.log('Sending to Whisper for transcription...');
+    console.log('[process-voice-log] sending to Whisper...');
 
-    // Transcribe with Whisper
     const transcriptResponse = await fetch('https://api.openai.com/v1/audio/transcriptions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${openAIApiKey}`,
+        Authorization: `Bearer ${openAIApiKey}`,
       },
       body: formData,
     });
 
     if (!transcriptResponse.ok) {
       const errorText = await transcriptResponse.text();
-      console.error('Whisper API error:', errorText);
-      throw new Error(`Whisper API error: ${errorText}`);
+      console.error('[process-voice-log] Whisper API error:', errorText);
+      return new Response(JSON.stringify({ error: `Whisper API error: ${errorText}` }), {
+        status: 502,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
     const transcriptData = await transcriptResponse.json();
-    const transcript = transcriptData.text;
+    const transcript: string = transcriptData.text;
 
-    console.log('Transcription complete. Generating reflection...');
+    console.log('[process-voice-log] transcription complete; generating reflection...');
 
-    // Generate reflection with constrained prompt
     const reflectionResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${openAIApiKey}`,
+        Authorization: `Bearer ${openAIApiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -122,12 +219,9 @@ YOU MUST NOT:
 - Make predictions about outcomes
 - Validate or invalidate their feelings
 
-Tone: Calm older brother. Short sentences. Non-judgmental. No emojis.`
+Tone: Calm older brother. Short sentences. Non-judgmental. No emojis.`,
           },
-          {
-            role: 'user',
-            content: transcript
-          }
+          { role: 'user', content: transcript },
         ],
         max_tokens: 300,
         temperature: 0.7,
@@ -136,51 +230,45 @@ Tone: Calm older brother. Short sentences. Non-judgmental. No emojis.`
 
     if (!reflectionResponse.ok) {
       const errorText = await reflectionResponse.text();
-      console.error('GPT API error:', errorText);
-      throw new Error(`GPT API error: ${errorText}`);
+      console.error('[process-voice-log] GPT API error:', errorText);
+      return new Response(JSON.stringify({ error: `GPT API error: ${errorText}` }), {
+        status: 502,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
     const reflectionData = await reflectionResponse.json();
-    const reflection = reflectionData.choices[0].message.content;
+    const reflection: string = reflectionData.choices?.[0]?.message?.content ?? '';
 
-    console.log('Reflection generated. Updating database...');
+    console.log('[process-voice-log] updating database...');
 
-    // Update the voice log with transcript and reflection
-    const { error: updateError } = await supabase
+    const { error: updateError } = await supabaseService
       .from('voice_logs')
       .update({
-        transcript: transcript,
-        reflection_summary: reflection
+        transcript,
+        reflection_summary: reflection,
       })
       .eq('id', voiceLogId);
 
     if (updateError) {
-      console.error('Database update error:', updateError);
-      throw updateError;
-    }
-
-    console.log('Voice log processed successfully');
-
-    return new Response(
-      JSON.stringify({ 
-        transcript,
-        reflection,
-        success: true 
-      }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      }
-    );
-
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.error('Error processing voice log:', error);
-    return new Response(
-      JSON.stringify({ error: errorMessage }),
-      {
+      console.error('[process-voice-log] database update error:', updateError);
+      return new Response(JSON.stringify({ error: 'Database update failed' }), {
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
-    );
+      });
+    }
+
+    console.log('[process-voice-log] success');
+
+    return new Response(JSON.stringify({ transcript, reflection, success: true }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('[process-voice-log] unhandled error:', error);
+    return new Response(JSON.stringify({ error: errorMessage }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
   }
 });
