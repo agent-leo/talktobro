@@ -30,6 +30,7 @@ export function Header() {
             alt="TalkToBro" 
             className="h-8"
           />
+          <span className="font-serif text-lg text-foreground">TalkToBro</span>
         </Link>
 
         {user ? (
