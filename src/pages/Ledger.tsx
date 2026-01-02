@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Play, Pause, Trash2, Loader2, Mic } from 'lucide-react';
-import talktobroLogo from '@/assets/talktobro-logo.png';
+import { Play, Pause, Trash2, Loader2, Mic } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { Header } from '@/components/Header';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -191,19 +191,8 @@ const Ledger = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="px-6 py-4 flex items-center justify-between border-b border-border">
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate('/')}
-          className="gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </Button>
-        <img src={talktobroLogo} alt="TalkToBro" className="h-8" />
-      </header>
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header />
 
       <main className="max-w-2xl mx-auto px-6 py-8">
         <div className="mb-8 animate-fade-in">
