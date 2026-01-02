@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Phone, Globe, MessageCircle } from 'lucide-react';
-import talktobroLogo from '@/assets/talktobro-logo.png';
+import { Phone, Globe, MessageCircle } from 'lucide-react';
+import { Header } from '@/components/Header';
 
 interface Resource {
   name: string;
@@ -148,23 +148,7 @@ const ResourceCard = ({ resource }: { resource: Resource }) => (
 const CrisisResources = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="max-w-3xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link 
-              to="/" 
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back</span>
-            </Link>
-            <Link to="/">
-              <img src={talktobroLogo} alt="TalkToBro" className="h-20 md:h-24" />
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-3xl mx-auto px-6 py-12">
