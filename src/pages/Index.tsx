@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, Mic, BookOpen } from 'lucide-react';
+import { Search, Mic, BookOpen, AlertTriangle } from 'lucide-react';
 import talktobroLogo from '@/assets/talktobro-logo.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConversationFlow } from '@/components/ConversationFlow';
 import { conversationFlows } from '@/data/conversationFlows';
 import { useAuth } from '@/contexts/AuthContext';
+import { LinkAccountDialog } from '@/components/LinkAccountDialog';
 
 const Index = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedFlow, setSelectedFlow] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isAnonymous } = useAuth();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,6 +76,27 @@ const Index = () => {
               feels necessary — sometimes you just need a place to stop and think.
             </p>
           </div>
+
+          {/* Anonymous User Banner */}
+          {isAnonymous && (
+            <div className="mb-6 p-4 rounded-lg bg-amber-500/10 border border-amber-500/20 animate-fade-in-delay-2">
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                <div className="flex-1 space-y-2">
+                  <p className="text-sm text-amber-600 dark:text-amber-400">
+                    You're using a guest account. Link your account to save your data permanently.
+                  </p>
+                  <LinkAccountDialog 
+                    trigger={
+                      <Button variant="outline" size="sm" className="border-amber-500/30 hover:bg-amber-500/10">
+                        Link Account
+                      </Button>
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Voice Recording CTA */}
           <div className="mb-12 animate-fade-in-delay-2">

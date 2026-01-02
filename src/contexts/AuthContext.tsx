@@ -6,11 +6,15 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  isAnonymous: boolean;
   signIn: (email: string) => Promise<{ error: Error | null }>;
   signInWithPhone: (phone: string) => Promise<{ error: Error | null }>;
   verifyOtp: (phone: string, token: string) => Promise<{ error: Error | null }>;
   signInWithGoogle: () => Promise<{ error: Error | null }>;
   signInAnonymously: () => Promise<{ error: Error | null }>;
+  linkEmail: (email: string) => Promise<{ error: Error | null }>;
+  linkPhone: (phone: string) => Promise<{ error: Error | null }>;
+  verifyPhoneLink: (phone: string, token: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -90,12 +94,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error };
   };
 
+  const linkEmail = async (email: string) => {
+    const redirectUrl = `${window.location.origin}/`;
+    const { error } = await supabase.auth.updateUser({
+      email,
+    }, {
+      emailRedirectTo: redirectUrl
+    });
+    return { error };
+  };
+
+  const linkPhone = async (phone: string) => {
+    const { error } = await supabase.auth.updateUser({
+      phone,
+    });
+    return { error };
+  };
+
+  const verifyPhoneLink = async (phone: string, token: string) => {
+    const { error } = await supabase.auth.verifyOtp({
+      phone,
+      token,
+      type: 'phone_change',
+    });
+    return { error };
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
   };
 
+  const isAnonymous = user?.is_anonymous ?? false;
+
   return (
-    <AuthContext.Provider value={{ user, session, loading, signIn, signInWithPhone, verifyOtp, signInWithGoogle, signInAnonymously, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, isAnonymous, signIn, signInWithPhone, verifyOtp, signInWithGoogle, signInAnonymously, linkEmail, linkPhone, verifyPhoneLink, signOut }}>
       {children}
     </AuthContext.Provider>
   );
