@@ -89,7 +89,24 @@ const AtoZ = () => {
               >
                 <X className="w-4 h-4" />
               </button>
-            )}
+          )}
+          </div>
+          
+          {/* Category Filters */}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+                className={`px-3 py-1 text-sm rounded-full transition-colors ${
+                  selectedCategory === category
+                    ? 'bg-accent text-accent-foreground'
+                    : 'bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
           
           {/* Letter Navigation */}
