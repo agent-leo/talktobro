@@ -161,71 +161,38 @@ const Ledger = () => {
   };
 
   const retryProcessing = async (log: VoiceLog) => {
-    if (!log.audio_url) return;
-    
     setRetryingId(log.id);
-    
+
     try {
-      // Get the audio file from storage
-      const { data: downloadData, error: downloadError } = await supabase.storage
-        .from('voice-recordings')
-        .download(log.audio_url);
-      
-      if (downloadError || !downloadData) {
-        throw new Error('Could not download audio file');
+      const { error: processError } = await supabase.functions.invoke('process-voice-log', {
+        body: {
+          voiceLogId: log.id,
+        },
+      });
+
+      if (processError) {
+        console.error('Processing error:', processError);
+        toast({
+          title: 'Processing failed',
+          description: processError.message || 'Could not process the recording',
+          variant: 'destructive',
+        });
+        setRetryingId(null);
+        return;
       }
-      
-      // Convert blob to base64
-      const reader = new FileReader();
-      reader.readAsDataURL(downloadData);
-      
-      reader.onloadend = async () => {
-        const base64Audio = (reader.result as string).split(',')[1];
-        
-        // Call edge function
-        const { data: result, error: processError } = await supabase.functions
-          .invoke('process-voice-log', {
-            body: {
-              audio: base64Audio,
-              voiceLogId: log.id
-            }
-          });
-        
-        if (processError) {
-          console.error('Processing error:', processError);
-          toast({
-            title: "Processing failed",
-            description: processError.message || "Could not process the recording",
-            variant: "destructive"
-          });
-          setRetryingId(null);
-          return;
-        }
-        
-        // Refresh the logs to show updated data
-        await fetchLogs();
-        toast({
-          title: "Processing complete",
-          description: "Your reflection is ready"
-        });
-        setRetryingId(null);
-      };
-      
-      reader.onerror = () => {
-        toast({
-          title: "Error",
-          description: "Failed to read audio file",
-          variant: "destructive"
-        });
-        setRetryingId(null);
-      };
-      
+
+      await fetchLogs();
+      toast({
+        title: 'Processing complete',
+        description: 'Your reflection is ready',
+      });
+      setRetryingId(null);
     } catch (err) {
       console.error('Retry error:', err);
       toast({
-        title: "Error",
-        description: "Failed to reprocess recording",
-        variant: "destructive"
+        title: 'Error',
+        description: 'Failed to reprocess recording',
+        variant: 'destructive',
       });
       setRetryingId(null);
     }
