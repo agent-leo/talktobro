@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import talktobroLogo from '@/assets/talktobro-logo.png';
 import { Button } from '@/components/ui/button';
 import { VoiceRecorder } from '@/components/VoiceRecorder';
 import { useAuth } from '@/contexts/AuthContext';
+import { Header } from '@/components/Header';
 
 type TriggerType = 'before_trade' | 'after_loss' | 'fomo' | 'panic' | 'overconfidence' | 'revenge' | 'stuck' | 'other';
 
@@ -62,18 +62,22 @@ const Record = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
-      <header className="px-6 py-4 flex items-center justify-between">
-        <Button 
-          variant="ghost" 
-          onClick={handleBack}
-          className="gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </Button>
-        <img src={talktobroLogo} alt="TalkToBro" className="h-8" />
-      </header>
+      {selectedTrigger ? (
+        /* Recording mode - show back button */
+        <header className="px-6 py-4 flex items-center">
+          <Button 
+            variant="ghost" 
+            onClick={handleBack}
+            className="gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </Button>
+        </header>
+      ) : (
+        /* Trigger selection - show full header */
+        <Header />
+      )}
 
       <main className="flex-1 flex flex-col">
         {selectedTrigger ? (

@@ -1,10 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Search, ArrowUp, X } from 'lucide-react';
-import talktobroLogo from '@/assets/talktobro-logo.png';
+import { Search, ArrowUp, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { getEntriesByLetter, getAvailableLetters, GlossaryEntry, glossaryEntries } from '@/data/glossaryData';
 import { conversationFlows } from '@/data/conversationFlows';
+import { Header } from '@/components/Header';
 
 const AtoZ = () => {
   const [searchParams] = useSearchParams();
@@ -66,21 +66,30 @@ const AtoZ = () => {
     setSelectedCategory(null);
   };
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm border-b border-border">
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header />
+      
+      {/* Sticky Search Header */}
+      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="max-w-3xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <Link 
-              to="/" 
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back</span>
-            </Link>
-            <Link to="/">
-              <img src={talktobroLogo} alt="TalkToBro" className="h-20 md:h-24" />
-            </Link>
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search for any term..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 pr-10 bg-secondary/50 border-border/50"
+            />
+            {(searchQuery || selectedCategory) && (
+              <button 
+                onClick={clearFilters}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
           
           {/* Search */}
@@ -103,43 +112,26 @@ const AtoZ = () => {
             )}
           </div>
           
-          {/* Category Filter */}
-          <div className="flex flex-wrap gap-2 mt-3">
-            {categories.map(category => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
-                className={`px-3 py-1 text-xs rounded-full transition-colors ${
-                  selectedCategory === category
-                    ? 'bg-foreground text-background'
-                    : 'bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+          {/* Letter Navigation */}
+          <div className="mt-3 overflow-x-auto">
+            <div className="flex gap-1 min-w-max">
+              {availableLetters.map(letter => (
+                <a
+                  key={letter}
+                  href={`#letter-${letter}`}
+                  className={`px-2.5 py-1 text-sm rounded transition-colors ${
+                    filteredEntries[letter]
+                      ? 'text-foreground hover:bg-secondary'
+                      : 'text-muted-foreground/40 pointer-events-none'
+                  }`}
+                >
+                  {letter}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
-        
-        {/* Letter Navigation */}
-        <div className="max-w-3xl mx-auto px-6 pb-3 overflow-x-auto">
-          <div className="flex gap-1 min-w-max">
-            {availableLetters.map(letter => (
-              <a
-                key={letter}
-                href={`#letter-${letter}`}
-                className={`px-2.5 py-1 text-sm rounded transition-colors ${
-                  filteredEntries[letter]
-                    ? 'text-foreground hover:bg-secondary'
-                    : 'text-muted-foreground/40 pointer-events-none'
-                }`}
-              >
-                {letter}
-              </a>
-            ))}
-          </div>
-        </div>
-      </header>
+      </div>
 
       {/* Main Content */}
       <main id="a-z-main" className="max-w-3xl mx-auto px-6 py-8">
