@@ -92,26 +92,6 @@ const AtoZ = () => {
             )}
           </div>
           
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Search for any term..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-10 bg-secondary/50 border-border/50"
-            />
-            {(searchQuery || selectedCategory) && (
-              <button 
-                onClick={clearFilters}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-          
           {/* Letter Navigation */}
           <div className="mt-3 overflow-x-auto">
             <div className="flex gap-1 min-w-max">
