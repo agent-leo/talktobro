@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      voice_logs: {
+        Row: {
+          audio_url: string | null
+          created_at: string
+          deleted_at: string | null
+          duration_seconds: number | null
+          id: string
+          reflection_summary: string | null
+          transcript: string | null
+          trigger_type: Database["public"]["Enums"]["trigger_type"]
+          user_id: string
+        }
+        Insert: {
+          audio_url?: string | null
+          created_at?: string
+          deleted_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          reflection_summary?: string | null
+          transcript?: string | null
+          trigger_type: Database["public"]["Enums"]["trigger_type"]
+          user_id: string
+        }
+        Update: {
+          audio_url?: string | null
+          created_at?: string
+          deleted_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          reflection_summary?: string | null
+          transcript?: string | null
+          trigger_type?: Database["public"]["Enums"]["trigger_type"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +58,15 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      trigger_type:
+        | "before_trade"
+        | "after_loss"
+        | "fomo"
+        | "panic"
+        | "overconfidence"
+        | "revenge"
+        | "stuck"
+        | "other"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +193,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      trigger_type: [
+        "before_trade",
+        "after_loss",
+        "fomo",
+        "panic",
+        "overconfidence",
+        "revenge",
+        "stuck",
+        "other",
+      ],
+    },
   },
 } as const
