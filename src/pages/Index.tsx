@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { Search, Mic, BookOpen, AlertTriangle } from 'lucide-react';
-import talktobroLogo from '@/assets/talktobro-logo.png';
+import talktobroLogo from '@/assets/talktobro-logo-new.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConversationFlow } from '@/components/ConversationFlow';
@@ -56,11 +56,14 @@ const Index = () => {
         <div className="max-w-2xl mx-auto w-full">
           {/* Logo / Title */}
           <div className="mb-16 animate-fade-in">
-            <img 
-              src={talktobroLogo} 
-              alt="TalkToBro" 
-              className="h-20 md:h-28 mb-4"
-            />
+            <div className="flex items-center gap-3 mb-4">
+              <img 
+                src={talktobroLogo} 
+                alt="TalkToBro" 
+                className="h-16 md:h-20"
+              />
+              <span className="font-serif text-3xl md:text-4xl text-foreground">TalkToBro</span>
+            </div>
             <p className="text-muted-foreground text-lg">
               A place to pause before you trade.
             </p>
