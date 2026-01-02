@@ -312,6 +312,9 @@ const Auth = () => {
                   'Continue as Guest'
                 )}
               </Button>
+              <p className="text-xs text-muted-foreground text-center">
+                Guest accounts are temporary. Your data may be lost if you clear your browser or don't link an account.
+              </p>
             </>
           )}
 
