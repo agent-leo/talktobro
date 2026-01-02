@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { User, LogOut, AlertTriangle, UserCheck } from 'lucide-react';
-import talktobroLogo from '@/assets/talktobro-logo.png';
+import talktobroLogo from '@/assets/talktobro-logo-new.png';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
