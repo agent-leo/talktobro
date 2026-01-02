@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, Mic, BookOpen } from 'lucide-react';
 import talktobroLogo from '@/assets/talktobro-logo.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConversationFlow } from '@/components/ConversationFlow';
 import { conversationFlows } from '@/data/conversationFlows';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Index = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedFlow, setSelectedFlow] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,8 +76,30 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Entry Points */}
-          <div className="space-y-4 mb-8 animate-fade-in-delay-2">
+          {/* Voice Recording CTA */}
+          <div className="mb-12 animate-fade-in-delay-2">
+            <Button 
+              onClick={() => navigate('/record')} 
+              variant="primary"
+              className="w-full gap-3"
+            >
+              <Mic className="w-5 h-5" />
+              Record a voice note
+            </Button>
+            {user && (
+              <Button 
+                onClick={() => navigate('/ledger')} 
+                variant="ghost"
+                className="w-full mt-2 gap-2 text-muted-foreground"
+              >
+                <BookOpen className="w-4 h-4" />
+                View your decision ledger
+              </Button>
+            )}
+          </div>
+
+          {/* Text-based Entry Points */}
+          <div className="space-y-4 mb-8 animate-fade-in-delay-3">
             <p className="text-sm text-muted-foreground uppercase tracking-wide mb-6">
               What brings you here?
             </p>
