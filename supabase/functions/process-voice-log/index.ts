@@ -160,11 +160,12 @@ serve(async (req) => {
 
     // Prepare form data for Whisper
     const formData = new FormData();
-    const audioArrayBuffer = audioBytes.buffer.slice(
-      audioBytes.byteOffset,
-      audioBytes.byteOffset + audioBytes.byteLength,
-    );
-    const audioBlob = new Blob([audioArrayBuffer], { type: mimeType });
+
+    // IMPORTANT: copy into a plain Uint8Array<ArrayBuffer> so BlobPart typing passes in Deno
+    // (audioBytes may be backed by ArrayBufferLike which includes SharedArrayBuffer).
+    const audioBytesForBlob = new Uint8Array(audioBytes);
+    const audioBlob = new Blob([audioBytesForBlob], { type: mimeType });
+
     formData.append('file', audioBlob, `audio.${fileExt}`);
     formData.append('model', 'whisper-1');
 
