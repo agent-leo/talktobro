@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, ArrowLeft, Loader2, Phone } from 'lucide-react';
+import { Mail, ArrowLeft, Loader2, Phone, AlertTriangle } from 'lucide-react';
 import talktobroLogo from '@/assets/talktobro-logo.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -312,9 +312,12 @@ const Auth = () => {
                   'Continue as Guest'
                 )}
               </Button>
-              <p className="text-xs text-muted-foreground text-center">
-                Guest accounts are temporary. Your data may be lost if you clear your browser or don't link an account.
-              </p>
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                <p className="text-xs text-amber-600 dark:text-amber-400">
+                  Guest accounts are temporary. Your data may be lost if you clear your browser or don't link an account.
+                </p>
+              </div>
             </>
           )}
 
