@@ -8,6 +8,7 @@ import { ConversationFlow } from '@/components/ConversationFlow';
 import { conversationFlows } from '@/data/conversationFlows';
 import { useAuth } from '@/contexts/AuthContext';
 import { LinkAccountDialog } from '@/components/LinkAccountDialog';
+import { Header } from '@/components/Header';
 
 const Index = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -48,9 +49,10 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header />
       {/* Hero Section */}
-      <main className="flex flex-col justify-center min-h-screen px-6 py-16">
+      <main className="flex-1 flex flex-col justify-center px-6 py-16">
         <div className="max-w-2xl mx-auto w-full">
           {/* Logo / Title */}
           <div className="mb-16 animate-fade-in">
