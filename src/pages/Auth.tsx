@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, ArrowLeft, Loader2, Phone, AlertTriangle } from 'lucide-react';
-import talktobroLogo from '@/assets/talktobro-logo.png';
+import talktobroLogo from '@/assets/talktobro-logo-new.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
@@ -161,12 +161,13 @@ const Auth = () => {
       <main className="flex-1 flex items-center justify-center px-6 py-16">
         <div className="max-w-sm w-full space-y-8 animate-fade-in">
           {/* Logo */}
-          <div className="text-center">
+          <div className="flex items-center justify-center gap-3 mb-6">
             <img 
               src={talktobroLogo} 
               alt="TalkToBro" 
-              className="h-16 mx-auto mb-6"
+              className="h-16"
             />
+            <span className="font-serif text-3xl text-foreground">TalkToBro</span>
           </div>
 
           {authStep === 'input' && (
