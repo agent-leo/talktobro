@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Header } from '@/components/Header';
-import { Check, ArrowRight, Sparkles } from 'lucide-react';
+import { Check, ArrowRight, Sparkles, Loader2 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Onboarding = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,21 +27,57 @@ const Onboarding = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
-    // In production, this would send to Supabase and trigger WhatsApp allowlist
-    // For now, we'll store locally and redirect to Stripe
-    console.log('Onboarding data:', formData);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setSubmitted(true);
-    setIsSubmitting(false);
-    
-    // After showing success, redirect to Stripe
-    setTimeout(() => {
-      window.open('https://buy.stripe.com/dRmcN6a1w9CEfs39QndAk01', '_blank');
-    }, 2000);
+    try {
+      // Normalise phone number to international format
+      let phone = formData.phone.replace(/\s+/g, '');
+      if (!phone.startsWith('+')) {
+        if (phone.startsWith('0')) {
+          phone = '+44' + phone.substring(1);
+        } else {
+          phone = '+' + phone;
+        }
+      }
+
+      // Insert user into Supabase
+      const { data, error: insertError } = await supabase
+        .from('users')
+        .insert([
+          {
+            name: formData.name,
+            phone: phone,
+            goals: formData.goals,
+            experience: formData.experience,
+            style: formData.style,
+          }
+        ])
+        .select()
+        .single();
+
+      if (insertError) {
+        // Check if it's a duplicate phone number
+        if (insertError.code === '23505') {
+          // User already exists - that's fine, let them continue
+          console.log('User already exists, continuing...');
+        } else {
+          throw insertError;
+        }
+      }
+
+      console.log('User created:', data);
+      setSubmitted(true);
+      
+      // Redirect to Stripe after showing success
+      setTimeout(() => {
+        window.open('https://buy.stripe.com/dRmcN6a1w9CEfs39QndAk01', '_blank');
+      }, 2000);
+    } catch (err) {
+      console.error('Error saving user:', err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -53,7 +91,7 @@ const Onboarding = () => {
             </div>
             <h1 className="text-2xl font-serif text-foreground mb-4">You're in!</h1>
             <p className="text-muted-foreground mb-6">
-              Once you complete payment, add <strong>+447474087196</strong> to your contacts 
+              After payment, add <strong>+447361665083</strong> to your contacts 
               and message "Hey Leo" on WhatsApp. I'll recognise your number.
             </p>
             <p className="text-sm text-muted-foreground">
@@ -82,6 +120,12 @@ const Onboarding = () => {
               />
             ))}
           </div>
+
+          {error && (
+            <div className="mb-6 p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-center">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit}>
             {/* Step 1: Name & Phone */}
@@ -239,8 +283,17 @@ const Onboarding = () => {
                   className="w-full"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Setting up...' : 'Continue to Payment'}
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Setting up...
+                    </>
+                  ) : (
+                    <>
+                      Continue to Payment
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </>
+                  )}
                 </Button>
                 
                 <Button
