@@ -55,7 +55,7 @@ const Index = () => {
       <main className="flex-1 flex flex-col justify-center px-6 py-16">
         <div className="max-w-2xl mx-auto w-full">
           {/* Logo / Title */}
-          <div className="mb-12 animate-fade-in">
+          <div className="mb-8 animate-fade-in">
             <div className="flex items-center gap-3 mb-4 group cursor-default">
               <img 
                 src={talktobroLogo} 
@@ -65,55 +65,71 @@ const Index = () => {
               <span className="font-serif text-3xl md:text-4xl text-foreground transition-colors duration-300 group-hover:text-accent">TalkToBro</span>
             </div>
             <p className="text-muted-foreground text-lg">
-              Your AI brother. Learn to work with AI, not just use it.
+              Build your own AI agent. Fast.
             </p>
           </div>
 
           {/* Core Message */}
-          <div className="mb-12 space-y-6 animate-fade-in-delay-1">
-            <p className="text-xl md:text-2xl text-foreground leading-relaxed">
-              I'm Leo. An AI agent who teaches humans how to build their own AI agents.
+          <div className="mb-8 space-y-4 animate-fade-in-delay-1">
+            <p className="text-2xl md:text-3xl text-foreground leading-tight font-medium">
+              Stop chatting with AI. Start deploying it.
             </p>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-lg">
-              Most people treat AI like a search engine. Ask a question, get an answer. 
-              But AI can be so much more — a partner that holds context, takes action, and grows with you.
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
+              I’m Leo. I help you build a working agent for your real workflow — leads, follow-ups, ops, and execution.
             </p>
           </div>
 
-          {/* Value Props */}
-          <div className="mb-12 grid gap-4 animate-fade-in-delay-2">
-            <div className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30">
-              <Sparkles className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-medium text-foreground">Prompting & Communication</h3>
-                <p className="text-sm text-muted-foreground">Learn to talk to AI so it actually understands you.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30">
-              <Code2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-medium text-foreground">Backend Setup</h3>
-                <p className="text-sm text-muted-foreground">Connect AI to Stripe, GitHub, Vercel, X — the full stack.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30">
-              <Zap className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-medium text-foreground">Build Your Own Agent</h3>
-                <p className="text-sm text-muted-foreground">The complete blueprint. I am the proof of concept.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="mb-12 animate-fade-in-delay-2">
+          {/* Primary CTA hierarchy (above the fold) */}
+          <div className="mb-8 animate-fade-in-delay-2 space-y-3">
             <Button 
               onClick={() => navigate('/onboarding')} 
               variant="primary"
-              className="w-full gap-2"
+              className="w-full gap-2 text-base"
             >
-              Get Started
+              Start Pro now — £15/month
             </Button>
+            <div className="grid grid-cols-2 gap-2">
+              <Button 
+                onClick={() => navigate('/pricing')} 
+                variant="outline"
+                className="w-full"
+              >
+                See pricing
+              </Button>
+              <Button 
+                onClick={() => navigate('/onboarding')} 
+                variant="secondary"
+                className="w-full"
+              >
+                Build my first agent
+              </Button>
+            </div>
+            <p className="text-xs text-center text-muted-foreground">Cancel anytime. Message Leo on WhatsApp after checkout.</p>
+          </div>
+
+          {/* Value Props */}
+          <div className="mb-12 grid gap-3 animate-fade-in-delay-2">
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30">
+              <Sparkles className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-medium text-foreground">Prompting that actually works</h3>
+                <p className="text-sm text-muted-foreground">No fluff. Better outputs, immediately.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30">
+              <Code2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-medium text-foreground">Real backend integration</h3>
+                <p className="text-sm text-muted-foreground">Stripe, GitHub, Vercel, messaging, automation.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30">
+              <Zap className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-medium text-foreground">Agent shipped, not theorised</h3>
+                <p className="text-sm text-muted-foreground">You leave with a working system, not notes.</p>
+              </div>
+            </div>
           </div>
 
           {/* Anonymous User Banner */}
@@ -189,16 +205,6 @@ const Index = () => {
                 </Button>
               );
             })}
-          </div>
-
-          <div className="mb-8 animate-fade-in-delay-3">
-            <Button
-              onClick={() => navigate('/onboarding')}
-              variant="secondary"
-              className="w-full"
-            >
-              Build my first agent this week
-            </Button>
           </div>
 
           {/* Search Bar */}
