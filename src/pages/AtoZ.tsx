@@ -209,7 +209,7 @@ const AtoZ = () => {
           <p>© 2025 TalkToBro</p>
           <div className="flex items-center gap-4">
             <Link to="/crisis" className="hover:text-foreground transition-colors">
-              Crisis Resources
+              Support & Safety
             </Link>
             <span className="hidden sm:inline">·</span>
             <span className="hidden sm:inline">Build your first agent this week</span>

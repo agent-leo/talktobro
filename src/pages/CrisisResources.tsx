@@ -154,28 +154,28 @@ const CrisisResources = () => {
       <main className="max-w-3xl mx-auto px-6 py-12">
         <div className="mb-12">
           <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-4">
-            Crisis Resources
+            Support & Safety
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
-            If you're struggling, you don't have to face it alone. These organizations 
-            offer free, confidential support.
+            TalkToBro is coaching and execution support — not medical care.
+            If you are in crisis, use these professional services now.
           </p>
         </div>
 
         {/* Important Notice */}
         <div className="bg-secondary/30 border border-border rounded-lg p-6 mb-12">
           <p className="text-foreground font-medium mb-2">
-            If you're in immediate danger, please call emergency services in your country.
+            If there is immediate risk, call emergency services now.
           </p>
           <p className="text-sm text-muted-foreground">
-            Trading losses can feel overwhelming, but they don't define your worth. 
-            Financial problems can be solved. Your life matters more than any trade.
+            This page is here to get you to qualified help quickly.
+            Your safety comes before any business, trade, or task.
           </p>
         </div>
 
         {/* Mental Health Section */}
         <section className="mb-12">
-          <h3 className="font-serif text-xl text-foreground mb-2">Mental Health Support</h3>
+          <h3 className="font-serif text-xl text-foreground mb-2">Immediate emotional support</h3>
           <p className="text-sm text-muted-foreground mb-6">
             24/7 crisis lines and emotional support services.
           </p>
@@ -188,10 +188,9 @@ const CrisisResources = () => {
 
         {/* Gambling/Trading Addiction Section */}
         <section className="mb-12">
-          <h3 className="font-serif text-xl text-foreground mb-2">Trading & Gambling Addiction</h3>
+          <h3 className="font-serif text-xl text-foreground mb-2">Compulsive trading or gambling support</h3>
           <p className="text-sm text-muted-foreground mb-6">
-            Compulsive trading shares many characteristics with gambling addiction. 
-            These organizations understand and can help.
+            If trading feels compulsive or out of control, these services can help.
           </p>
           <div className="border-t border-border">
             {gamblingAddictionResources.map((resource) => (
@@ -202,9 +201,9 @@ const CrisisResources = () => {
 
         {/* Financial Stress Section */}
         <section className="mb-12">
-          <h3 className="font-serif text-xl text-foreground mb-2">Financial Stress & Debt</h3>
+          <h3 className="font-serif text-xl text-foreground mb-2">Financial stress and debt support</h3>
           <p className="text-sm text-muted-foreground mb-6">
-            Free, non-judgmental help for financial difficulties.
+            Free, non-judgmental help for money pressure and debt.
           </p>
           <div className="border-t border-border">
             {financialStressResources.map((resource) => (
@@ -216,8 +215,7 @@ const CrisisResources = () => {
         {/* Closing Note */}
         <div className="text-center py-8 border-t border-border">
           <p className="text-muted-foreground text-sm max-w-md mx-auto">
-            Recovery is possible. Many traders have been where you are and found their way through. 
-            Reaching out is a sign of strength, not weakness.
+            Getting help early is a power move. You are not alone, and support is available right now.
           </p>
         </div>
       </main>
@@ -226,7 +224,7 @@ const CrisisResources = () => {
       <footer className="px-6 py-8 border-t border-border">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>© 2025 TalkToBro</p>
-          <p>You matter more than any trade.</p>
+          <p>Your safety matters more than any task.</p>
         </div>
       </footer>
     </div>

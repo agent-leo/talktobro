@@ -239,8 +239,7 @@ const Index = () => {
               Vercel, and X accounts. The blueprint isn't theoretical — it's proven.
             </p>
             <p>
-              If you're experiencing a mental health crisis,<br />
-              please reach out to a professional or call your local crisis line.
+              If you need urgent support, use our Support & Safety page and contact a professional service.
             </p>
           </div>
         </div>
@@ -252,7 +251,7 @@ const Index = () => {
           <p>© 2025 TalkToBro</p>
           <div className="flex items-center gap-4">
             <Link to="/crisis" className="hover:text-foreground transition-colors">
-              Crisis Resources
+              Support & Safety
             </Link>
             <span className="hidden sm:inline">·</span>
             <Link to="/pricing" className="hover:text-foreground transition-colors">
