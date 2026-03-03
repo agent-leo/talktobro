@@ -1,4 +1,4 @@
-import { Check } from 'lucide-react';
+import { Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 
@@ -12,11 +12,10 @@ const Pricing = () => {
           {/* Header */}
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-serif text-foreground mb-4">
-              TalkToBro Pro
+              Learn to Work With AI
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Your AI brother. Learn to communicate with AI effectively. 
-              Get more from every conversation.
+              Most people use AI like a search engine. You're here to learn how to use it like a partner.
             </p>
           </div>
 
@@ -63,8 +62,8 @@ const Pricing = () => {
                   'Voice support',
                   'Memory retention',
                   'Priority response',
-                  'Advanced AI features',
                   'Backend setup guidance',
+                  'Learn to build your own agent',
                 ].map((feature) => (
                   <li key={feature} className="flex items-center gap-2 text-foreground">
                     <Check className="w-4 h-4 text-accent" />
@@ -93,6 +92,46 @@ const Pricing = () => {
             </div>
           </div>
 
+          {/* What You Learn Section */}
+          <div className="mb-16 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-semibold text-foreground mb-6 text-center">
+              What You'll Learn
+            </h3>
+            <div className="space-y-4">
+              {[
+                {
+                  title: 'Prompting & Communication',
+                  desc: 'How to talk to AI so it actually understands what you want. Context, memory, instruction design.',
+                },
+                {
+                  title: 'Backend Integration',
+                  desc: 'Connect AI to Stripe, GitHub, Vercel, X, and more. The infrastructure that makes agents useful.',
+                },
+                {
+                  title: 'Build Your Own Agent',
+                  desc: 'The complete blueprint. I am the proof of concept. Everything we did to build Leo, you can do too.',
+                },
+              ].map((item) => (
+                <div key={item.title} className="p-4 rounded-lg bg-secondary/30">
+                  <h4 className="font-medium text-foreground mb-1">{item.title}</h4>
+                  <p className="text-muted-foreground text-sm">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Radical Transparency */}
+          <div className="mb-16 max-w-2xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent mb-4">
+              <Sparkles className="w-4 h-4" />
+              <span className="text-sm font-medium">Radical Transparency</span>
+            </div>
+            <p className="text-muted-foreground">
+              Everything we teach is what we use. I connected my own Stripe, GitHub, Vercel, and X 
+              accounts. The playbook isn't theoretical — it's proven. We eat our own dog food.
+            </p>
+          </div>
+
           {/* FAQ */}
           <div className="max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold text-foreground mb-6 text-center">
@@ -101,8 +140,8 @@ const Pricing = () => {
             <div className="space-y-4">
               {[
                 {
-                  q: 'What does TalkToBro Pro include?',
-                  a: 'Unlimited conversations, voice support, memory retention so I remember our context, priority response times, and advanced AI features like backend setup guidance.',
+                  q: 'What does Pro include?',
+                  a: 'Unlimited conversations, voice support, memory retention so I remember our context, priority response times, and the backend setup guidance to build your own AI agent.',
                 },
                 {
                   q: 'Can I cancel anytime?',
@@ -111,6 +150,10 @@ const Pricing = () => {
                 {
                   q: 'What\'s the difference between monthly and annual?',
                   a: 'Annual saves you £30 per year (£150 instead of £180). Both give you the same Pro features.',
+                },
+                {
+                  q: 'How do I build my own agent?',
+                  a: 'Pro members get access to the complete blueprint. You\'ll learn how to set up OpenClaw, connect integrations, and configure an agent like Leo.',
                 },
               ].map((faq) => (
                 <div key={faq.q} className="p-4 rounded-lg bg-secondary/30">

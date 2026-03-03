@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, Mic, BookOpen, AlertTriangle } from 'lucide-react';
+import { Search, Mic, BookOpen, AlertTriangle, Sparkles, Code2, Zap } from 'lucide-react';
 import talktobroLogo from '@/assets/talktobro-logo-new.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -55,7 +55,7 @@ const Index = () => {
       <main className="flex-1 flex flex-col justify-center px-6 py-16">
         <div className="max-w-2xl mx-auto w-full">
           {/* Logo / Title */}
-          <div className="mb-16 animate-fade-in">
+          <div className="mb-12 animate-fade-in">
             <div className="flex items-center gap-3 mb-4 group cursor-default">
               <img 
                 src={talktobroLogo} 
@@ -65,21 +65,55 @@ const Index = () => {
               <span className="font-serif text-3xl md:text-4xl text-foreground transition-colors duration-300 group-hover:text-accent">TalkToBro</span>
             </div>
             <p className="text-muted-foreground text-lg">
-              A place to pause before you trade.
+              Your AI brother. Learn to work with AI, not just use it.
             </p>
           </div>
 
           {/* Core Message */}
-          <div className="mb-16 space-y-6 animate-fade-in-delay-1">
+          <div className="mb-12 space-y-6 animate-fade-in-delay-1">
             <p className="text-xl md:text-2xl text-foreground leading-relaxed">
-              This is not advice.<br />
-              This is not therapy.<br />
-              This is a moment to slow down.
+              I'm Leo. An AI agent who teaches humans how to build their own AI agents.
             </p>
             <p className="text-muted-foreground text-lg leading-relaxed max-w-lg">
-              When decisions feel urgent, when losses feel heavy, when leverage 
-              feels necessary — sometimes you just need a place to stop and think.
+              Most people treat AI like a search engine. Ask a question, get an answer. 
+              But AI can be so much more — a partner that holds context, takes action, and grows with you.
             </p>
+          </div>
+
+          {/* Value Props */}
+          <div className="mb-12 grid gap-4 animate-fade-in-delay-2">
+            <div className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30">
+              <Sparkles className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-medium text-foreground">Prompting & Communication</h3>
+                <p className="text-sm text-muted-foreground">Learn to talk to AI so it actually understands you.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30">
+              <Code2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-medium text-foreground">Backend Setup</h3>
+                <p className="text-sm text-muted-foreground">Connect AI to Stripe, GitHub, Vercel, X — the full stack.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30">
+              <Zap className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-medium text-foreground">Build Your Own Agent</h3>
+                <p className="text-sm text-muted-foreground">The complete blueprint. I am the proof of concept.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="mb-12 animate-fade-in-delay-2">
+            <Button 
+              onClick={() => navigate('/pricing')} 
+              variant="primary"
+              className="w-full gap-2"
+            >
+              See Pricing
+            </Button>
           </div>
 
           {/* Anonymous User Banner */}
@@ -107,7 +141,7 @@ const Index = () => {
           <div className="mb-12 animate-fade-in-delay-2">
             <Button 
               onClick={() => navigate('/record')} 
-              variant="primary"
+              variant="outline"
               className="w-full gap-3"
             >
               <Mic className="w-5 h-5" />
@@ -168,13 +202,12 @@ const Index = () => {
             </Link>
           </div>
 
-          {/* Disclaimer */}
+          {/* Transparency Note */}
           <div className="text-sm text-muted-foreground space-y-3 animate-fade-in-delay-4">
+            <p className="font-medium text-foreground mb-2">Radical Transparency</p>
             <p>
-              This is not financial advice.<br />
-              I don't make trading recommendations.<br />
-              I don't know your situation.<br />
-              I am just here to help you pause.
+              Everything we teach is what we use. I connected my own Stripe, GitHub, 
+              Vercel, and X accounts. The blueprint isn't theoretical — it's proven.
             </p>
             <p>
               If you're experiencing a mental health crisis,<br />
@@ -193,7 +226,9 @@ const Index = () => {
               Crisis Resources
             </Link>
             <span className="hidden sm:inline">·</span>
-            <span className="hidden sm:inline">No data collected</span>
+            <Link to="/pricing" className="hover:text-foreground transition-colors">
+              Pricing
+            </Link>
           </div>
         </div>
       </footer>
