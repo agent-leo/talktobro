@@ -93,10 +93,10 @@ const Onboarding = () => {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 mb-6">
               <Check className="w-8 h-8 text-accent" />
             </div>
-            <h1 className="text-2xl font-serif text-foreground mb-4">You're in!</h1>
+            <h1 className="text-2xl font-serif text-foreground mb-4">You are in.</h1>
             <p className="text-muted-foreground mb-6">
-              After payment, add <strong>+447361665083</strong> to your contacts 
-              and message "Hey Leo" on WhatsApp. I'll recognise your number.
+              After payment, add <strong>+447361665083</strong> and send "Hey Leo" on WhatsApp.
+              Leo will recognise your number and continue from there.
             </p>
             <p className="text-sm text-muted-foreground">
               Redirecting to payment...
@@ -136,13 +136,13 @@ const Onboarding = () => {
             {step === 1 && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <h1 className="text-2xl font-serif text-foreground mb-2">Let's get to know you</h1>
-                  <p className="text-muted-foreground">So I can personalise your experience</p>
+                  <h1 className="text-2xl font-serif text-foreground mb-2">Quick setup</h1>
+                  <p className="text-muted-foreground">So I can build this around you</p>
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Your name
+                    Name
                   </label>
                   <Input
                     name="name"
@@ -166,7 +166,7 @@ const Onboarding = () => {
                     required
                   />
                   <p className="text-xs text-muted-foreground mt-1">
-                    This is where I'll message you after you join
+                    This is where Leo will reply once you are in
                   </p>
                 </div>
 
@@ -187,26 +187,26 @@ const Onboarding = () => {
             {step === 2 && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <h1 className="text-2xl font-serif text-foreground mb-2">What do you want to learn?</h1>
-                  <p className="text-muted-foreground">I'll tailor our conversations to your goals</p>
+                  <h1 className="text-2xl font-serif text-foreground mb-2">What are we fixing first?</h1>
+                  <p className="text-muted-foreground">Pick the outcome, not the vibe</p>
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Your main goal
+                    Main goal
                   </label>
                   <Input
                     name="goals"
                     value={formData.goals}
                     onChange={handleChange}
-                    placeholder="e.g. Build my own AI agent, improve prompting, set up backend integrations..."
+                    placeholder="e.g. build my first agent, automate follow-ups, tighten prompts"
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Experience with AI
+                    Current level
                   </label>
                   <select
                     name="experience"
@@ -214,10 +214,10 @@ const Onboarding = () => {
                     onChange={handleChange}
                     className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground"
                   >
-                    <option value="beginner">Beginner — I use ChatGPT occasionally</option>
-                    <option value="intermediate">Intermediate — I prompt daily, know the basics</option>
-                    <option value="advanced">Advanced — I use AI tools heavily, want to go deeper</option>
-                    <option value="builder">Builder — I want to create my own AI agent</option>
+                    <option value="beginner">Beginner — I use ChatGPT now and then</option>
+                    <option value="intermediate">Intermediate — I use AI daily</option>
+                    <option value="advanced">Advanced — I run multiple AI tools</option>
+                    <option value="builder">Builder — I am here to ship agents</option>
                   </select>
                 </div>
 
@@ -247,13 +247,13 @@ const Onboarding = () => {
             {step === 3 && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <h1 className="text-2xl font-serif text-foreground mb-2">How should I talk to you?</h1>
-                  <p className="text-muted-foreground">I'll match your preferred style</p>
+                  <h1 className="text-2xl font-serif text-foreground mb-2">How direct do you want me?</h1>
+                  <p className="text-muted-foreground">Set your default tone</p>
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Communication style
+                    Tone
                   </label>
                   <select
                     name="style"
@@ -261,10 +261,10 @@ const Onboarding = () => {
                     onChange={handleChange}
                     className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground"
                   >
-                    <option value="direct">Direct — No fluff, just answers</option>
-                    <option value="conversational">Conversational — Chat through ideas together</option>
-                    <option value="technical">Technical — Deep detail, show your work</option>
-                    <option value="supportive">Supportive — Encouraging, patient</option>
+                    <option value="direct">Direct — no fluff, just moves</option>
+                    <option value="conversational">Conversational — think out loud with me</option>
+                    <option value="technical">Technical — deep detail, show the logic</option>
+                    <option value="supportive">Supportive — firm but encouraging</option>
                   </select>
                 </div>
 
@@ -274,8 +274,8 @@ const Onboarding = () => {
                     <div>
                       <p className="text-sm font-medium text-foreground">What happens next</p>
                       <p className="text-sm text-muted-foreground mt-1">
-                        After payment, I'll add your number to my WhatsApp and you can message me anytime. 
-                        Unlimited conversations, voice support, memory retention.
+                        After payment, you message Leo on WhatsApp and we start.
+                        Unlimited conversations, voice support, memory retained.
                       </p>
                     </div>
                   </div>
@@ -290,11 +290,11 @@ const Onboarding = () => {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Setting up...
+                      Locking this in...
                     </>
                   ) : (
                     <>
-                      Continue to Payment
+                      Go to payment
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </>
                   )}
