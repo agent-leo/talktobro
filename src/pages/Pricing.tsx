@@ -1,8 +1,11 @@
 import { Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
+import { useNavigate } from 'react-router-dom';
 
 const Pricing = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
@@ -74,21 +77,10 @@ const Pricing = () => {
               <Button 
                 variant="primary" 
                 className="w-full"
-                onClick={() => window.open('https://buy.stripe.com/dRmcN6a1w9CEfs39QndAk01', '_blank')}
+                onClick={() => navigate('/onboarding')}
               >
-                Start Pro Monthly
+                Get Started
               </Button>
-              <p className="text-center text-sm text-muted-foreground mt-3">
-                or{' '}
-                <a 
-                  href="https://buy.stripe.com/5kQ14o6Pk9CEcfR6EbdAk02" 
-                  className="text-accent hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  save £30 with annual (£150/year)
-                </a>
-              </p>
             </div>
           </div>
 

@@ -11,6 +11,7 @@ import Ledger from "./pages/Ledger";
 import AtoZ from "./pages/AtoZ";
 import CrisisResources from "./pages/CrisisResources";
 import Pricing from "./pages/Pricing";
+import Onboarding from "./pages/Onboarding";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/a-z" element={<AtoZ />} />
             <Route path="/crisis" element={<CrisisResources />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/onboarding" element={<Onboarding />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

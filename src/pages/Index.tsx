@@ -67,9 +67,6 @@ const Index = () => {
             <p className="text-muted-foreground text-lg">
               Your AI brother. Learn to work with AI, not just use it.
             </p>
-            <p className="text-sm text-accent mt-2">
-              ✨ Auto-deploy verified
-            </p>
           </div>
 
           {/* Core Message */}
@@ -111,11 +108,11 @@ const Index = () => {
           {/* CTA */}
           <div className="mb-12 animate-fade-in-delay-2">
             <Button 
-              onClick={() => navigate('/pricing')} 
+              onClick={() => navigate('/onboarding')} 
               variant="primary"
               className="w-full gap-2"
             >
-              See Pricing
+              Get Started
             </Button>
           </div>
 
