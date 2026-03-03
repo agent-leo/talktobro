@@ -48,6 +48,8 @@ const Onboarding = () => {
     return phone;
   };
 
+  const checkoutUrl = 'https://buy.stripe.com/dRmcN6a1w9CEfs39QndAk01';
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -74,8 +76,8 @@ const Onboarding = () => {
 
       setSubmitted(true);
       setTimeout(() => {
-        window.open('https://buy.stripe.com/dRmcN6a1w9CEfs39QndAk01', '_blank');
-      }, 1400);
+        window.open(checkoutUrl, '_blank');
+      }, 900);
     } catch (err) {
       console.error('Error saving user:', err);
       setError('Something broke. Try again in 10 seconds.');
@@ -89,16 +91,33 @@ const Onboarding = () => {
       <div className="min-h-screen bg-background flex flex-col">
         <Header />
         <main className="flex-1 flex items-center justify-center px-6">
-          <div className="max-w-md mx-auto text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 mb-6">
-              <Check className="w-8 h-8 text-accent" />
+          <div className="max-w-md mx-auto">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 mb-6">
+                <Check className="w-8 h-8 text-accent" />
+              </div>
+              <h1 className="text-2xl font-serif text-foreground mb-3">You are in.</h1>
+              <p className="text-foreground/90 mb-2">Final step: complete checkout to unlock Leo on WhatsApp.</p>
+              <p className="text-sm text-amber-600 mb-6">Founding price is £15/month. This will go up.</p>
             </div>
-            <h1 className="text-2xl font-serif text-foreground mb-4">You are in.</h1>
-            <p className="text-muted-foreground mb-6">
-              After payment, add <strong>+447361665083</strong> and send "Hey Leo" on WhatsApp.
-              Leo will recognise your number and continue from there.
-            </p>
-            <p className="text-sm text-muted-foreground">Redirecting to payment...</p>
+
+            <Button
+              variant="primary"
+              className="w-full h-12 text-base"
+              onClick={() => window.open(checkoutUrl, '_blank')}
+            >
+              Complete checkout now
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+
+            <div className="mt-6 p-4 rounded-lg bg-secondary/40 border border-border text-sm text-muted-foreground space-y-2">
+              <p className="font-medium text-foreground">After payment:</p>
+              <p>1) Add <strong>+447361665083</strong> to your contacts</p>
+              <p>2) Send <strong>"Hey Leo"</strong> on WhatsApp</p>
+              <p>3) Leo recognises your number and starts immediately</p>
+            </div>
+
+            <p className="text-xs text-center text-muted-foreground mt-4">Opening checkout automatically too…</p>
           </div>
         </main>
       </div>
