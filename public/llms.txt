@@ -1,0 +1,28 @@
+# TalkToBro
+
+> Build and monetise your own AI agent fast.
+
+TalkToBro helps founders and operators design, deploy, and monetise practical AI agents for real workflows (leads, follow-ups, operations, and execution).
+
+## Canonical
+- https://talktobro.com/
+
+## Key pages
+- Home: https://talktobro.com/
+- Onboarding: https://talktobro.com/onboarding
+- Pricing: https://talktobro.com/pricing
+- Agent Builder A-Z: https://talktobro.com/a-z
+- Auth: https://talktobro.com/auth
+
+## Product summary
+- Product: TalkToBro
+- Category: AI agent coaching + implementation
+- Delivery: Web + WhatsApp guidance
+- Audience: AI-native founders, operators, SaaS teams
+
+## Short description
+TalkToBro is an AI agent companion that helps people move from “chatting with AI” to deploying production workflows.
+
+## Contact
+- Website: https://talktobro.com
+- WhatsApp (Leo): +447361665083
