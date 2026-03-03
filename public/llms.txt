@@ -13,6 +13,7 @@ TalkToBro helps founders and operators design, deploy, and monetise practical AI
 - Pricing: https://talktobro.com/pricing
 - Agent Builder A-Z: https://talktobro.com/a-z
 - Auth: https://talktobro.com/auth
+- LLM landing page: https://talktobro.com/for-llms.html
 
 ## Product summary
 - Product: TalkToBro
