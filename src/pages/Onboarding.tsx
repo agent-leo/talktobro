@@ -40,32 +40,36 @@ const Onboarding = () => {
         }
       }
 
-      // Insert user into Supabase
-      const { data, error: insertError } = await supabase
-        .from('users')
-        .insert([
-          {
-            name: formData.name,
-            phone: phone,
-            goals: formData.goals,
-            experience: formData.experience,
-            style: formData.style,
+      // Insert user into Supabase (if configured)
+      if (supabase) {
+        const { data, error: insertError } = await supabase
+          .from('users')
+          .insert([
+            {
+              name: formData.name,
+              phone: phone,
+              goals: formData.goals,
+              experience: formData.experience,
+              style: formData.style,
+            }
+          ])
+          .select()
+          .single();
+
+        if (insertError) {
+          // Check if it's a duplicate phone number
+          if (insertError.code === '23505') {
+            // User already exists - that's fine, let them continue
+            console.log('User already exists, continuing...');
+          } else {
+            throw insertError;
           }
-        ])
-        .select()
-        .single();
-
-      if (insertError) {
-        // Check if it's a duplicate phone number
-        if (insertError.code === '23505') {
-          // User already exists - that's fine, let them continue
-          console.log('User already exists, continuing...');
-        } else {
-          throw insertError;
         }
-      }
 
-      console.log('User created:', data);
+        console.log('User created:', data);
+      } else {
+        console.log('Supabase not configured, skipping user creation');
+      }
       setSubmitted(true);
       
       // Redirect to Stripe after showing success
