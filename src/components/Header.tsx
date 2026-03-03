@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { User, LogOut, AlertTriangle, UserCheck } from 'lucide-react';
+import { User, LogOut, AlertTriangle, UserCheck, CreditCard } from 'lucide-react';
 import talktobroLogo from '@/assets/talktobro-logo-new.png';
 import { Button } from '@/components/ui/button';
 import {
@@ -79,6 +79,10 @@ export function Header() {
                 <User className="w-4 h-4 mr-2" />
                 Decision Ledger
               </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/pricing')}>
+                <CreditCard className="w-4 h-4 mr-2" />
+                Pricing
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">
                 <LogOut className="w-4 h-4 mr-2" />
@@ -87,9 +91,16 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <Button variant="ghost" size="sm" onClick={() => navigate('/auth')}>
-            Sign In
-          </Button>
+          <div className="flex items-center gap-2">
+            <Link to="/pricing">
+              <Button variant="ghost" size="sm">
+                Pricing
+              </Button>
+            </Link>
+            <Button variant="ghost" size="sm" onClick={() => navigate('/auth')}>
+              Sign In
+            </Button>
+          </div>
         )}
       </div>
     </header>

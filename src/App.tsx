@@ -10,6 +10,7 @@ import Record from "./pages/Record";
 import Ledger from "./pages/Ledger";
 import AtoZ from "./pages/AtoZ";
 import CrisisResources from "./pages/CrisisResources";
+import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/ledger" element={<Ledger />} />
             <Route path="/a-z" element={<AtoZ />} />
             <Route path="/crisis" element={<CrisisResources />} />
+            <Route path="/pricing" element={<Pricing />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
