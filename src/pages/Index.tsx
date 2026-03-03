@@ -67,6 +67,9 @@ const Index = () => {
             <p className="text-muted-foreground text-lg">
               Your AI brother. Learn to work with AI, not just use it.
             </p>
+            <p className="text-sm text-accent mt-2">
+              ✨ Auto-deploy verified
+            </p>
           </div>
 
           {/* Core Message */}
