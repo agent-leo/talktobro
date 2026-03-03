@@ -165,17 +165,30 @@ const Index = () => {
               What brings you here?
             </p>
             
-            {Object.values(conversationFlows).map((flow, index) => (
-              <Button
-                key={flow.id}
-                variant="entry"
-                onClick={() => setSelectedFlow(flow.id)}
-                className={`animate-fade-in`}
-                style={{ animationDelay: `${0.3 + index * 0.1}s` }}
-              >
-                <span className="font-medium">{flow.title}</span>
-              </Button>
-            ))}
+            {[
+              'money',
+              'clarity',
+              'workflows',
+              'stack',
+              'prompting',
+              'custom',
+              'mindset',
+            ].map((flowId, index) => {
+              const flow = conversationFlows[flowId];
+              if (!flow) return null;
+
+              return (
+                <Button
+                  key={flow.id}
+                  variant="entry"
+                  onClick={() => setSelectedFlow(flow.id)}
+                  className={`animate-fade-in`}
+                  style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+                >
+                  <span className="font-medium">{flow.title}</span>
+                </Button>
+              );
+            })}
           </div>
 
           <div className="mb-8 animate-fade-in-delay-3">

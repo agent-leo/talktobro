@@ -22,7 +22,7 @@ export interface ConversationFlow {
 export const conversationFlows: Record<string, ConversationFlow> = {
   clarity: {
     id: 'clarity',
-    title: 'I want clarity on what agent to build',
+    title: 'Choose the first agent to build',
     description: 'Turn vague ideas into a concrete first agent',
     startStep: 'intro',
     steps: {
@@ -85,8 +85,8 @@ export const conversationFlows: Record<string, ConversationFlow> = {
 
   stack: {
     id: 'stack',
-    title: 'I need the right AI stack',
-    description: 'Model + tools + memory + channels without overengineering',
+    title: 'Build the right stack (without overbuilding)',
+    description: 'Model + tools + memory + channels, done properly',
     startStep: 'intro',
     steps: {
       intro: {
@@ -140,8 +140,8 @@ export const conversationFlows: Record<string, ConversationFlow> = {
 
   workflows: {
     id: 'workflows',
-    title: 'I want to automate my workflow',
-    description: 'Turn repeat tasks into reliable agents',
+    title: 'Automate my workflow now',
+    description: 'Turn repeated tasks into reliable agents',
     startStep: 'intro',
     steps: {
       intro: {
@@ -179,8 +179,8 @@ export const conversationFlows: Record<string, ConversationFlow> = {
 
   prompting: {
     id: 'prompting',
-    title: 'I want better prompting and outputs',
-    description: 'Get cleaner responses and stronger execution from AI',
+    title: 'Fix my prompts and outputs',
+    description: 'Get sharper responses and stronger execution from AI',
     startStep: 'intro',
     steps: {
       intro: {
@@ -216,8 +216,8 @@ export const conversationFlows: Record<string, ConversationFlow> = {
 
   money: {
     id: 'money',
-    title: 'I want to monetise an AI agent',
-    description: 'Package outcomes people will pay for',
+    title: 'Monetise an AI agent',
+    description: 'Package outcomes buyers will pay for',
     startStep: 'intro',
     steps: {
       intro: {
@@ -253,8 +253,8 @@ export const conversationFlows: Record<string, ConversationFlow> = {
 
   mindset: {
     id: 'mindset',
-    title: 'I feel overwhelmed by AI and tools',
-    description: 'Cut noise and build with confidence',
+    title: 'I am overwhelmed — simplify it',
+    description: 'Cut noise, focus fast, and ship',
     startStep: 'intro',
     steps: {
       intro: {
@@ -290,7 +290,7 @@ export const conversationFlows: Record<string, ConversationFlow> = {
 
   custom: {
     id: 'custom',
-    title: 'I want a custom plan for my business',
+    title: 'Build my custom 30-day plan',
     description: 'Map your first 30 days of agent implementation',
     startStep: 'intro',
     steps: {
