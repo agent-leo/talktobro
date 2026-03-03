@@ -134,11 +134,11 @@ const AtoZ = () => {
       <main id="a-z-main" className="max-w-3xl mx-auto px-6 py-8">
         <div className="mb-8">
           <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3">
-            A to Z
+            Agent Builder A to Z
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            A glossary of what we actually mean when we talk about trading psychology. 
-            Some terms link to conversations — tap them to start.
+            A practical glossary for building and monetising AI agents.
+            Some terms link to guided conversations — tap to start.
           </p>
         </div>
 
@@ -212,7 +212,7 @@ const AtoZ = () => {
               Crisis Resources
             </Link>
             <span className="hidden sm:inline">·</span>
-            <span className="hidden sm:inline">A place to pause</span>
+            <span className="hidden sm:inline">Build your first agent this week</span>
           </div>
         </div>
       </footer>

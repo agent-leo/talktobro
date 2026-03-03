@@ -178,6 +178,16 @@ const Index = () => {
             ))}
           </div>
 
+          <div className="mb-8 animate-fade-in-delay-3">
+            <Button
+              onClick={() => navigate('/onboarding')}
+              variant="secondary"
+              className="w-full"
+            >
+              Build my first agent this week
+            </Button>
+          </div>
+
           {/* Search Bar */}
           <div className="mb-8 animate-fade-in-delay-3">
             <form onSubmit={handleSearch} className="relative">
