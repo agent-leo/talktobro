@@ -175,10 +175,10 @@ const Auth = () => {
               {/* Title */}
               <div className="text-center space-y-2">
                 <h1 className="text-2xl font-serif text-foreground">
-                  Sign in to continue
+                  Sign in and keep your agent context
                 </h1>
                 <p className="text-muted-foreground">
-                  Your voice logs are private to you
+                  Your chats, goals, and workflow memory stay private to you.
                 </p>
               </div>
 
@@ -239,7 +239,7 @@ const Auth = () => {
                         Sending code...
                       </>
                     ) : (
-                      'Continue with phone'
+                      'Send code'
                     )}
                   </Button>
                 </form>
@@ -274,7 +274,7 @@ const Auth = () => {
                         Sending link...
                       </>
                     ) : (
-                      'Continue with email'
+                      'Send magic link'
                     )}
                   </Button>
                 </form>
@@ -283,8 +283,8 @@ const Auth = () => {
               {/* Privacy note */}
               <p className="text-xs text-center text-muted-foreground">
                 {authMethod === 'phone' 
-                  ? "We'll send you a 6-digit code to verify your number."
-                  : "Magic link sent to your inbox. No password needed."}
+                  ? "We’ll text a 6-digit code."
+                  : "We’ll email a magic link. No password needed."}
               </p>
 
               {/* Divider */}
@@ -299,9 +299,9 @@ const Auth = () => {
 
               {/* Guest sign-in */}
               <Button 
-                variant="outline"
+                variant="ghost"
                 onClick={handleGuestSignIn}
-                className="w-full"
+                className="w-full text-muted-foreground"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -310,13 +310,13 @@ const Auth = () => {
                     Signing in...
                   </>
                 ) : (
-                  'Continue as Guest'
+                  'Continue as guest (temporary)'
                 )}
               </Button>
               <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
                 <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                 <p className="text-xs text-amber-600 dark:text-amber-400">
-                  Guest accounts are temporary. Your data may be lost if you clear your browser or don't link an account.
+Guest mode is temporary. If you clear your browser, your data can disappear. Link an account if it matters.
                 </p>
               </div>
             </>
