@@ -57,7 +57,7 @@ const Pricing = () => {
                 blurb: 'Try Bro properly',
                 features: [
                   'Memory that doesn\'t reset',
-                  'It works while you sleep',
+                  'Bro works while you sleep',
                   'One Bro, every channel',
                   'Actual execution, not just talk',
                   'Extensible skills for your workflow',
