@@ -1,4 +1,4 @@
-import { Check, Sparkles } from 'lucide-react';
+import { Brain, Moon, LayoutGrid, Play, Puzzle, Server, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -56,12 +56,12 @@ const Pricing = () => {
                 price: '£9',
                 blurb: 'Try Bro properly',
                 features: [
-                  'Memory that doesn\'t reset',
-                  'Bro works while you sleep',
-                  'One Bro, every channel',
-                  'Actual execution, not just talk',
-                  'Extensible skills for your workflow',
-                  'Your infrastructure, your sovereignty',
+                  { text: 'Memory that doesn\'t reset', icon: 'Brain' },
+                  { text: 'Bro works while you sleep', icon: 'Moon' },
+                  { text: 'One Bro, every channel', icon: 'LayoutGrid' },
+                  { text: 'Actual execution, not just talk', icon: 'Play' },
+                  { text: 'Extensible skills for your workflow', icon: 'Puzzle' },
+                  { text: 'Your infrastructure, your sovereignty', icon: 'Server' },
                 ],
                 cta: 'Start Starter trial',
                 featured: false,
@@ -72,7 +72,7 @@ const Pricing = () => {
                 price: '£29',
                 blurb: '5x more usage than Starter',
                 features: [
-                  'Everything in Starter',
+                  { text: 'Everything in Starter', icon: 'Check' },
                 ],
                 cta: isPro ? 'Current Plan' : 'Start Pro 5x trial',
                 featured: true,
@@ -81,9 +81,9 @@ const Pricing = () => {
                 id: 'elite',
                 name: 'Pro 20x',
                 price: '£99',
-                blurb: '20x more usage than Pro 5x',
+                blurb: '20x more usage than Starter',
                 features: [
-                  'Everything in Pro 5x',
+                  { text: 'Everything in Pro 5x', icon: 'Check' },
                 ],
                 cta: 'Start Pro 20x trial',
                 featured: false,
@@ -111,12 +111,21 @@ const Pricing = () => {
                 <span className="block text-sm text-muted-foreground mb-5">{plan.id === 'starter' ? 'For the curious' : plan.id === 'pro' ? 'For the enthusiast' : 'For the power user'}</span>
                 <p className="text-sm text-foreground mb-4">{plan.blurb}</p>
                 <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-foreground">
-                      <Check className="w-4 h-4 text-accent" />
-                      {feature}
-                    </li>
-                  ))}
+                  {plan.features.map((feature) => {
+                    const IconComponent = feature.icon === 'Brain' ? Brain
+                      : feature.icon === 'Moon' ? Moon
+                      : feature.icon === 'LayoutGrid' ? LayoutGrid
+                      : feature.icon === 'Play' ? Play
+                      : feature.icon === 'Puzzle' ? Puzzle
+                      : feature.icon === 'Server' ? Server
+                      : Sparkles;
+                    return (
+                      <li key={feature.text} className="flex items-center gap-2 text-foreground">
+                        <IconComponent className="w-4 h-4 text-accent" />
+                        {feature.text}
+                      </li>
+                    );
+                  })}
                 </ul>
                 <Button variant={plan.featured ? 'primary' : 'outline'} className={`w-full pointer-events-none ${plan.featured ? 'bg-accent text-accent-foreground hover:bg-accent/90' : ''}`} disabled={plan.id === 'pro' && isPro}>
                   {plan.cta}
