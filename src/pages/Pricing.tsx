@@ -87,7 +87,7 @@ const Pricing = () => {
                 price: '£99',
                 blurb: '20x more usage than Starter',
                 features: [
-                  { text: 'Everything in Pro 5x', icon: 'Check' },
+                  { text: 'Everything in Starter', icon: 'Check' },
                 ],
                 cta: 'Get Pro 20x',
                 featured: false,
