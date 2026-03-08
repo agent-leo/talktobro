@@ -1,4 +1,4 @@
-import { Brain, Moon, LayoutGrid, Play, Puzzle, Server, Check } from 'lucide-react';
+import { Brain, Moon, LayoutGrid, Play, Puzzle, Server, Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
