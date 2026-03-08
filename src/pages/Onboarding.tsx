@@ -196,7 +196,7 @@ Start your personalised 24-hour trial in Stripe
                 className="w-full"
                 onClick={() => window.open(checkoutUrlState || fallbackCheckoutUrl, '_blank')}
               >
-Start my custom Bro checkout
+Start now
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
