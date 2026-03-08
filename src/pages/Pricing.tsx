@@ -1,4 +1,4 @@
-import { Brain, Moon, Bot, Play, Puzzle, Server, Check, Sparkles } from 'lucide-react';
+import { Brain, Moon, Bot, Play, Puzzle, Heart, Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -61,7 +61,7 @@ const Pricing = () => {
                   { text: 'Memory that doesn\'t reset', icon: 'Brain' },
                   { text: 'Actual execution, not just talk', icon: 'Play' },
                   { text: 'Extensible skills for your workflow', icon: 'Puzzle' },
-                  { text: 'Your infrastructure, your sovereignty', icon: 'Server' },
+                  { text: 'Your infrastructure, your sovereignty', icon: 'Heart' },
                 ],
                 cta: 'Start Starter trial',
                 featured: false,
@@ -117,7 +117,7 @@ const Pricing = () => {
                       : feature.icon === 'Bot' ? Bot
                       : feature.icon === 'Play' ? Play
                       : feature.icon === 'Puzzle' ? Puzzle
-                      : feature.icon === 'Server' ? Server
+                      : feature.icon === 'Heart' ? Heart
                       : Check;
                     return (
                       <li key={feature.text} className="flex items-center gap-2 text-foreground">
