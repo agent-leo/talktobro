@@ -56,10 +56,10 @@ const Pricing = () => {
                 price: '£9',
                 blurb: 'Talk to Bro',
                 features: [
-                  { text: 'Learns you over time', icon: 'PersonStanding' },
-                  { text: 'One Bro, every channel', icon: 'Bot' },
-                  { text: 'Accountability partner', icon: 'CheckCircle2' },
                   { text: 'Voice-first interface', icon: 'Mic' },
+                  { text: 'Learns you over time', icon: 'PersonStanding' },
+                  { text: 'Accountability partner', icon: 'CheckCircle2' },
+                  { text: 'One Bro, every channel', icon: 'Bot' },
                   { text: 'Bro works while you sleep', icon: 'Moon' },
                   { text: 'Memory that doesn\'t reset', icon: 'Brain' },
                   { text: 'Proactive, not just reactive', icon: 'Target' },
