@@ -16,7 +16,7 @@ type AuthMethod = 'email' | 'phone';
 type AuthStep = 'input' | 'verify' | 'sent';
 
 const Auth = () => {
-  const [authMethod, setAuthMethod] = useState<AuthMethod>('phone');
+  const [authMethod, setAuthMethod] = useState<AuthMethod>('email');
   const [authStep, setAuthStep] = useState<AuthStep>('input');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -34,12 +34,11 @@ const Auth = () => {
     const { error } = await signInAnonymously();
 
     if (error) {
-      setError(error.message);
-      toast({
-        title: "Something went wrong",
-        description: error.message,
-        variant: "destructive"
-      });
+      // hard fallback: trial onboarding without auth session
+      localStorage.setItem('ttb_trial_mode', '1');
+      setIsSubmitting(false);
+      navigate('/onboarding');
+      return;
     }
 
     setIsSubmitting(false);
@@ -67,10 +66,13 @@ const Auth = () => {
     const { error } = await signIn(email);
 
     if (error) {
-      setError(error.message);
+      const msg = /email provider is disabled|email logins are disabled/i.test(error.message)
+        ? 'Email sign-in is not enabled yet. Continue without account to start your trial now.'
+        : error.message;
+      setError(msg);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: msg,
         variant: "destructive"
       });
     } else {
@@ -95,10 +97,13 @@ const Auth = () => {
     const { error } = await signInWithPhone(phone);
 
     if (error) {
-      setError(error.message);
+      const msg = /unsupported phone provider/i.test(error.message)
+        ? 'Phone sign-in is not enabled yet. Use email or continue without account.'
+        : error.message;
+      setError(msg);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: msg,
         variant: "destructive"
       });
     } else {
@@ -175,10 +180,10 @@ const Auth = () => {
               {/* Title */}
               <div className="text-center space-y-2">
                 <h1 className="text-2xl font-serif text-foreground">
-                  Sign in and keep your agent context
+                  Sign in and keep your Bro context
                 </h1>
                 <p className="text-muted-foreground">
-                  Your chats, goals, and workflow memory stay private to you.
+                  Your chats, goals, and workflow memory stay private to you across WhatsApp and Telegram.
                 </p>
               </div>
 
@@ -310,13 +315,13 @@ const Auth = () => {
                     Signing in...
                   </>
                 ) : (
-                  'Continue as guest (temporary)'
+                  'Continue without account (24h trial)'
                 )}
               </Button>
               <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
                 <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                 <p className="text-xs text-amber-600 dark:text-amber-400">
-Guest mode is temporary. If you clear your browser, your data can disappear. Link an account if it matters.
+Trial mode is temporary. Link an account to keep your Bro memory and settings long-term.
                 </p>
               </div>
             </>

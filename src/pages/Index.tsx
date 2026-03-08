@@ -118,6 +118,7 @@ const Index = () => {
                 <div className="rounded-2xl border border-border bg-background/80 p-4 md:p-5 shadow-sm">
                   <div className="mb-3">
                     <h3 className="text-base font-semibold text-foreground">WhatsApp</h3>
+                    <p className="text-xs text-muted-foreground">Best if you already live in WhatsApp.</p>
                   </div>
 
                   <Button
@@ -130,7 +131,7 @@ const Index = () => {
                   <div className="rounded-xl border-2 border-foreground/20 p-2 shadow-lg bg-white">
                     <div className="aspect-square overflow-hidden rounded-lg">
                       <img
-                        src="/bro-whatsapp-qr.jpg"
+                        src="/bro-whatsapp-qr.png"
                         alt="Bro WhatsApp QR code"
                         className="w-full h-full object-cover object-center"
                       />
@@ -143,6 +144,7 @@ const Index = () => {
                 <div className="rounded-2xl border border-border bg-background/80 p-4 md:p-5 shadow-sm">
                   <div className="mb-3">
                     <h3 className="text-base font-semibold text-foreground">Telegram</h3>
+                    <p className="text-xs text-muted-foreground">Best if you want a cleaner bot-style flow.</p>
                   </div>
 
                   <Button
@@ -156,7 +158,7 @@ const Index = () => {
                   <div className="rounded-xl border-2 border-foreground/20 p-2 shadow-lg bg-white">
                     <div className="aspect-square overflow-hidden rounded-lg">
                       <img
-                        src="/bro-telegram-qr.jpg"
+                        src="/bro-telegram-qr.png"
                         alt="Bro Telegram QR code"
                         className="w-full h-full object-cover object-center"
                       />

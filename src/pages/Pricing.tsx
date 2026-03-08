@@ -2,9 +2,34 @@ import { Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/lib/supabase';
 
 const Pricing = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [isPro, setIsPro] = useState(false);
+
+  useEffect(() => {
+    const loadSubscription = async () => {
+      if (!supabase || !user?.id) {
+        setIsPro(false);
+        return;
+      }
+
+      const { data } = await supabase
+        .from('subscriptions')
+        .select('status, plan')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      const active = !!data && ['active', 'trialing'].includes((data.status || '').toLowerCase()) && (data.plan || '').toLowerCase() !== 'free';
+      setIsPro(active);
+    };
+
+    loadSubscription();
+  }, [user?.id]);
   
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -15,93 +40,118 @@ const Pricing = () => {
           {/* Header */}
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-serif text-foreground mb-4">
-              Learn to Work With AI
+              Choose your Bro
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Most people use AI like a search engine. You're here to learn how to use it like a partner.
+              Start with a 24-hour trial, talk to Bro.
             </p>
           </div>
 
           {/* Pricing Cards */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-16">
-            {/* Free Tier */}
-            <div className="rounded-2xl border border-border p-8 bg-card">
-              <h2 className="text-2xl font-semibold text-foreground mb-2">Free</h2>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">£0</span>
-                <span className="text-muted-foreground">/forever</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                {[
-                  '10 messages per day',
-                  'Text conversations only',
-                  'Basic responses',
-                  'No memory retention',
-                ].map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-muted-foreground">
-                    <Check className="w-4 h-4 text-muted-foreground/50" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <Button variant="outline" className="w-full" disabled>
-                Current Plan
-              </Button>
-            </div>
-
-            {/* Pro Tier */}
-            <div className="rounded-2xl border-2 border-accent p-8 bg-card relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium">
-                Recommended
-              </div>
-              <h2 className="text-2xl font-semibold text-foreground mb-2">Pro</h2>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">£15</span>
-                <span className="text-muted-foreground">/month</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                {[
-                  'Unlimited conversations',
-                  'Voice support',
-                  'Memory retention',
-                  'Priority response',
-                  'Backend setup guidance',
-                  'Learn to build your own agent',
-                ].map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-foreground">
-                    <Check className="w-4 h-4 text-accent" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <Button 
-                variant="primary" 
-                className="w-full"
-                onClick={() => navigate('/onboarding')}
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+            {[
+              {
+                id: 'starter',
+                name: 'Starter',
+                price: '£9',
+                blurb: 'Try Bro properly',
+                features: [
+                  '24/7 Bro chat',
+                  'Daily check-ins (basic)',
+                  'Rolling memory (last 7 days)',
+                  'Great for first wins',
+                  'Limits: capped usage + no integrations/actions',
+                ],
+                cta: 'Start Starter trial',
+                featured: false,
+              },
+              {
+                id: 'pro',
+                name: 'Pro 5x',
+                price: '£29',
+                blurb: 'Your operational right hand',
+                features: [
+                  'Everything in Starter',
+                  '5x more usage than Starter',
+                  'Persistent memory (projects/people/decisions)',
+                  'Automations + workflows (Bro does it)',
+                  'Integrations: Calendar + Email + Docs',
+                  'Priority response lane',
+                ],
+                cta: isPro ? 'Current Plan' : 'Start Pro 5x trial',
+                featured: true,
+              },
+              {
+                id: 'elite',
+                name: 'Pro 20x',
+                price: '£99',
+                blurb: 'Concierge Bro for serious builders',
+                features: [
+                  'Everything in Pro',
+                  '20x more usage than Pro',
+                  'Bespoke strategy map',
+                  'Custom playbooks + SOPs',
+                  'Higher automation throughput',
+                  'Priority escalation support',
+                ],
+                cta: 'Start Pro 20x trial',
+                featured: false,
+              },
+            ].map((plan) => (
+              <div
+                key={plan.id}
+                className={`rounded-2xl p-8 bg-card cursor-pointer transition-all duration-200 hover:shadow-xl relative ${plan.featured ? 'border-2 border-accent' : 'border border-border'}`}
+                onClick={() => navigate(`/onboarding?plan=${plan.id}`)}
               >
-                Get Started
-              </Button>
-            </div>
+                {plan.id === 'pro' ? (
+                  <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-medium">Save 36%</div>
+                ) : null}
+                {plan.id === 'elite' ? (
+                  <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-medium">Save 83%</div>
+                ) : null}
+                {plan.featured ? (
+                  <div className="inline-block mb-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium">Recommended</div>
+                ) : null}
+                <h2 className="text-2xl font-semibold text-foreground mb-2">{plan.name}</h2>
+                <div className="mb-1">
+                  <span className="text-4xl font-bold">{plan.price}</span>
+                  <span className="text-muted-foreground">/month</span>
+                </div>
+                <span className="block text-sm text-muted-foreground mb-5">{plan.id === 'starter' ? 'For the curious' : plan.id === 'pro' ? 'For the enthusiast' : 'For the power user'}</span>
+                <p className="text-sm text-foreground mb-4">{plan.blurb}</p>
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-2 text-foreground">
+                      <Check className="w-4 h-4 text-accent" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <Button variant={plan.featured ? 'primary' : 'outline'} className={`w-full pointer-events-none ${plan.featured ? 'bg-accent text-accent-foreground hover:bg-accent/90' : ''}`} disabled={plan.id === 'pro' && isPro}>
+                  {plan.cta}
+                </Button>
+              </div>
+            ))}
           </div>
 
           {/* What You Learn Section */}
           <div className="mb-16 max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold text-foreground mb-6 text-center">
-              What You'll Learn
+What You Get
             </h3>
             <div className="space-y-4">
               {[
                 {
-                  title: 'Prompting & Communication',
-                  desc: 'How to talk to AI so it actually understands what you want. Context, memory, instruction design.',
+                  title: 'Execution Systems',
+                  desc: 'Build workflows that actually run: inbox handling, follow-ups, calendar actions, reminders, and ops execution.',
                 },
                 {
-                  title: 'Backend Integration',
-                  desc: 'Connect AI to Stripe, GitHub, Vercel, X, and more. The infrastructure that makes agents useful.',
+                  title: 'Real Integrations',
+                  desc: 'Connect Bro to your real stack: email, calendar, docs, CRM, payments, repos, and automations.',
                 },
                 {
-                  title: 'Build Your Own Agent',
-                  desc: 'The complete blueprint. I am the proof of concept. Everything we did to build Leo, you can do too.',
+                  title: 'Your Own Agent Stack',
+                  desc: 'Get the full setup playbook to run your own production-grade agent with memory, tools, and guardrails.',
                 },
               ].map((item) => (
                 <div key={item.title} className="p-4 rounded-lg bg-secondary/30">
@@ -119,8 +169,8 @@ const Pricing = () => {
               <span className="text-sm font-medium">Radical Transparency</span>
             </div>
             <p className="text-muted-foreground">
-              Everything we teach is what we use. I connected my own Stripe, GitHub, Vercel, and X 
-              accounts. The playbook isn't theoretical — it's proven. We eat our own dog food.
+              We run Bro on real workflows, in real chats, with real consequences. No demo theatre. No fake automation.
+              What you see is what we use daily.
             </p>
           </div>
 
@@ -133,19 +183,19 @@ const Pricing = () => {
               {[
                 {
                   q: 'What does Pro include?',
-                  a: 'Unlimited conversations, voice support, memory retention so I remember our context, priority response times, and the backend setup guidance to build your own AI agent.',
+                  a: 'Persistent memory, automations/workflows (Bro does it, not just suggests it), Calendar + Email + Docs integrations, higher usage, and a priority response lane.',
                 },
                 {
                   q: 'Can I cancel anytime?',
-                  a: 'Yes, you can cancel your subscription at any time. You\'ll continue to have access until the end of your billing period.',
+                  a: 'Yes. Cancel anytime and keep access until the end of your billing period.',
                 },
                 {
-                  q: 'What\'s the difference between monthly and annual?',
-                  a: 'Annual saves you £30 per year (£150 instead of £180). Both give you the same Pro features.',
+                  q: 'How fast can I get value?',
+                  a: 'Day one for quick wins. Pro users typically have automations running within a few days.',
                 },
                 {
-                  q: 'How do I build my own agent?',
-                  a: 'Pro members get access to the complete blueprint. You\'ll learn how to set up OpenClaw, connect integrations, and configure an agent like Leo.',
+                  q: 'Is this theory or implementation?',
+                  a: 'Implementation. The goal is a working system in your actual workflow, not a folder of notes.',
                 },
               ].map((faq) => (
                 <div key={faq.q} className="p-4 rounded-lg bg-secondary/30">
@@ -160,7 +210,7 @@ const Pricing = () => {
 
       <footer className="px-6 py-8 border-t border-border">
         <div className="max-w-2xl mx-auto text-center text-sm text-muted-foreground">
-          <p>© 2025 TalkToBro. All rights reserved.</p>
+          <p>© 2026 TalkToBro. All rights reserved.</p>
         </div>
       </footer>
     </div>

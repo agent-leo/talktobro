@@ -28,8 +28,8 @@
     --muted: 40 10% 88%;
     --muted-foreground: 220 8% 45%;
 
-    /* Subtle sage accent - for moments of reassurance */
-    --accent: 150 15% 45%;
+    /* Sharp black - icons and accents */
+    --accent: 0 0% 0%;
     --accent-foreground: 40 20% 96%;
 
     --destructive: 0 60% 50%;
@@ -75,8 +75,8 @@
     --muted: 220 10% 22%;
     --muted-foreground: 40 10% 60%;
 
-    --accent: 150 20% 40%;
-    --accent-foreground: 40 15% 92%;
+    --accent: 0 0% 100%;
+    --accent-foreground: 220 12% 10%;
 
     --destructive: 0 55% 45%;
     --destructive-foreground: 40 15% 92%;
@@ -168,4 +168,41 @@
 .animate-fade-in-delay-4 {
   opacity: 0;
   animation: fade-in 0.5s ease-out 0.4s forwards;
+}
+
+/* Shoutout marquee */
+.marquee-row {
+  position: relative;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+}
+
+.marquee-left {
+  animation: marquee-scroll-left 120s linear infinite;
+}
+
+.marquee-right {
+  animation: marquee-scroll-right 120s linear infinite;
+}
+
+@keyframes marquee-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Pause on hover */
+.marquee-row:hover .marquee-track {
+  animation-play-state: paused;
 }

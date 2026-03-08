@@ -12,6 +12,9 @@ import AtoZ from "./pages/AtoZ";
 import CrisisResources from "./pages/CrisisResources";
 import Pricing from "./pages/Pricing";
 import Onboarding from "./pages/Onboarding";
+import Success from "./pages/Success";
+import BookCall from "./pages/BookCall";
+import Integrations from "./pages/Integrations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +35,9 @@ const App = () => (
             <Route path="/crisis" element={<CrisisResources />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/book-call" element={<BookCall />} />
+            <Route path="/integrations" element={<Integrations />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -3,27 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TalkToBro — Build Your AI Agent Fast</title>
-    <meta name="description" content="Build and monetise your own AI agent. Leo helps you deploy real workflows for leads, follow-ups, ops, and execution.">
+    <title>TalkToBro — Build Your AI Agents Fast</title>
+    <meta name="description" content="Build and monetise your own AI agents. Bro helps you deploy real workflows for leads, follow-ups, ops, and execution.">
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://talktobro.com" />
     
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://talktobro.com" />
-    <meta property="og:title" content="TalkToBro — Build Your AI Agent Fast">
+    <meta property="og:title" content="TalkToBro — Build Your AI Agents Fast">
     <meta property="og:description" content="Build and monetise your own AI agent. Deploy real workflows for leads, follow-ups, ops, and execution.">
-    <meta property="og:image" content="https://talktobro.com/og-agent.svg?v=2">
-    <meta property="og:image:secure_url" content="https://talktobro.com/og-agent.svg?v=2">
+    <meta property="og:image" content="https://talktobro.com/talktobro-universal-logo.jpg?v=3">
+    <meta property="og:image:secure_url" content="https://talktobro.com/talktobro-universal-logo.jpg?v=3">
     <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:image:height" content="1200">
     <meta property="og:site_name" content="TalkToBro">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="TalkToBro — Build Your AI Agent Fast">
-    <meta name="twitter:description" content="Build and monetise your own AI agent with Leo. Real workflows, real execution.">
-    <meta name="twitter:image" content="https://talktobro.com/og-agent.svg?v=2">
+    <meta name="twitter:title" content="TalkToBro — Build Your AI Agents Fast">
+    <meta name="twitter:description" content="Build and monetise your own AI agents with Bro. Real workflows, real execution.">
+    <meta name="twitter:image" content="https://talktobro.com/talktobro-universal-logo.jpg?v=3">
 
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt">
 
@@ -49,7 +49,19 @@
       }
     </script>
     
-    <link rel="icon" type="image/png" href="https://storage.googleapis.com/gpt-engineer-file-uploads/gAAqmBCGSGfqijIaXLEGiByM93I3/uploads/1767306236858-Purple and White Simple Icon Internet Logo-2.png">
+    <!-- Prevent flash of wrong theme -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('talktobro-theme');
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="/talktobro-universal-logo.jpg?v=3">
+    <link rel="shortcut icon" href="/talktobro-universal-logo.jpg?v=3">
+    <link rel="apple-touch-icon" href="/talktobro-universal-logo.jpg?v=3">
   </head>
   <body>
     <div id="root"></div>

@@ -1,4 +1,7 @@
-project_id = "savyfnvkjnfmqqtjjnci"
+project_id = "chnxribjzydidlvafqfj"
 
 [functions.process-voice-log]
 verify_jwt = true
+
+[functions.booking-api]
+verify_jwt = false

@@ -1,0 +1,1 @@
+DROP INDEX IF EXISTS public.ux_trial_message_events_key;

@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/contexts/AuthContext';
 import { LinkAccountDialog } from '@/components/LinkAccountDialog';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export function Header() {
   const { user, isAnonymous, signOut } = useAuth();
@@ -33,6 +34,8 @@ export function Header() {
           <span className="font-serif text-lg text-foreground">TalkToBro</span>
         </Link>
 
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
         {user ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -97,11 +100,9 @@ export function Header() {
                 Pricing
               </Button>
             </Link>
-            <Button variant="ghost" size="sm" onClick={() => navigate('/auth')}>
-              Sign In
-            </Button>
           </div>
         )}
+        </div>
       </div>
     </header>
   );
