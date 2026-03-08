@@ -1,4 +1,4 @@
-import { Brain, Moon, Bot, Play, Puzzle, Heart, Target, AudioLines, Handshake, PersonStanding, Check, Sparkles } from 'lucide-react';
+import { Brain, Star, Bot, Play, Puzzle, Heart, Target, AudioLines, Handshake, PersonStanding, Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -60,7 +60,7 @@ const Pricing = () => {
                   { text: 'Learns you over time', icon: 'PersonStanding' },
                   { text: 'Accountability partner', icon: 'Handshake' },
                   { text: 'One Bro, every channel', icon: 'Bot' },
-                  { text: 'Bro works while you sleep', icon: 'Moon' },
+                  { text: 'Bro works while you sleep', icon: 'Star' },
                   { text: 'Memory that doesn\'t reset', icon: 'Brain' },
                   { text: 'Proactive, not just reactive', icon: 'Target' },
                   { text: 'Actual execution, not just talk', icon: 'Play' },
@@ -117,7 +117,7 @@ const Pricing = () => {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature) => {
                     const IconComponent = feature.icon === 'Brain' ? Brain
-                      : feature.icon === 'Moon' ? Moon
+                      : feature.icon === 'Star' ? Star
                       : feature.icon === 'Bot' ? Bot
                       : feature.icon === 'Play' ? Play
                       : feature.icon === 'Puzzle' ? Puzzle
