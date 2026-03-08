@@ -56,9 +56,9 @@ const Pricing = () => {
                 price: '£9',
                 blurb: 'Talk to Bro',
                 features: [
-                  { text: 'Memory that doesn\'t reset', icon: 'Brain' },
-                  { text: 'Bro works while you sleep', icon: 'Moon' },
                   { text: 'One Bro, every channel', icon: 'Bot' },
+                  { text: 'Bro works while you sleep', icon: 'Moon' },
+                  { text: 'Memory that doesn\'t reset', icon: 'Brain' },
                   { text: 'Actual execution, not just talk', icon: 'Play' },
                   { text: 'Extensible skills for your workflow', icon: 'Puzzle' },
                   { text: 'Your infrastructure, your sovereignty', icon: 'Server' },
