@@ -43,7 +43,7 @@ const Pricing = () => {
               Go Pro Bro
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Start with a 24-hour trial, talk to Bro.
+              Start with a 24-hour trial.
             </p>
           </div>
 
@@ -54,7 +54,7 @@ const Pricing = () => {
                 id: 'starter',
                 name: 'Starter',
                 price: '£9',
-                blurb: 'Try Bro properly',
+                blurb: 'Talk to Bro',
                 features: [
                   { text: 'Memory that doesn\'t reset', icon: 'Brain' },
                   { text: 'Bro works while you sleep', icon: 'Moon' },
