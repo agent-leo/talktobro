@@ -1,4 +1,4 @@
-import { Brain, Moon, Bot, Play, Puzzle, Heart, Target, Mic, CheckCircle2, PersonStanding, Check, Sparkles } from 'lucide-react';
+import { Brain, Moon, Bot, Play, Puzzle, Heart, Target, AudioLines, CheckCircle2, PersonStanding, Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -56,7 +56,7 @@ const Pricing = () => {
                 price: '£9',
                 blurb: 'Talk to Bro',
                 features: [
-                  { text: 'Voice-first interface', icon: 'Mic' },
+                  { text: 'Voice-first interface', icon: 'AudioLines' },
                   { text: 'Learns you over time', icon: 'PersonStanding' },
                   { text: 'Accountability partner', icon: 'CheckCircle2' },
                   { text: 'One Bro, every channel', icon: 'Bot' },
@@ -123,7 +123,7 @@ const Pricing = () => {
                       : feature.icon === 'Puzzle' ? Puzzle
                       : feature.icon === 'Heart' ? Heart
                       : feature.icon === 'Target' ? Target
-                      : feature.icon === 'Mic' ? Mic
+                      : feature.icon === 'AudioLines' ? AudioLines
                       : feature.icon === 'CheckCircle2' ? CheckCircle2
                       : feature.icon === 'PersonStanding' ? PersonStanding
                       : Check;
