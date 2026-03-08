@@ -1,4 +1,4 @@
-import { Brain, Moon, Bot, Play, Puzzle, Heart, Check, Sparkles } from 'lucide-react';
+import { Brain, Moon, Bot, Play, Puzzle, Heart, Target, Mic, CheckCircle2, TrendingUp, Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -62,6 +62,10 @@ const Pricing = () => {
                   { text: 'Actual execution, not just talk', icon: 'Play' },
                   { text: 'Extensible skills for your workflow', icon: 'Puzzle' },
                   { text: 'Your infrastructure, your sovereignty', icon: 'Heart' },
+                  { text: 'Proactive, not just reactive', icon: 'Target' },
+                  { text: 'Voice-first interface', icon: 'Mic' },
+                  { text: 'Accountability partner', icon: 'CheckCircle2' },
+                  { text: 'Learns you over time', icon: 'TrendingUp' },
                 ],
                 cta: 'Get Started',
                 featured: false,
@@ -118,6 +122,10 @@ const Pricing = () => {
                       : feature.icon === 'Play' ? Play
                       : feature.icon === 'Puzzle' ? Puzzle
                       : feature.icon === 'Heart' ? Heart
+                      : feature.icon === 'Target' ? Target
+                      : feature.icon === 'Mic' ? Mic
+                      : feature.icon === 'CheckCircle2' ? CheckCircle2
+                      : feature.icon === 'TrendingUp' ? TrendingUp
                       : Check;
                     return (
                       <li key={feature.text} className="flex items-center gap-2 text-foreground">
