@@ -116,14 +116,8 @@ const Index = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
                 <div className="rounded-2xl border border-border bg-background/80 p-4 md:p-5 shadow-sm">
-                  <div className="flex items-center justify-between gap-3 mb-3">
-                    <div>
-                      <h3 className="text-base font-semibold text-foreground">WhatsApp</h3>
-                      <p className="text-xs text-muted-foreground">Most familiar. Best if you already live in WhatsApp.</p>
-                    </div>
-                    <span className="inline-flex items-center rounded-full bg-accent/10 px-2.5 py-1 text-[11px] font-medium text-accent">
-                      Most familiar
-                    </span>
+                  <div className="mb-3">
+                    <h3 className="text-base font-semibold text-foreground">WhatsApp</h3>
                   </div>
 
                   <Button
@@ -147,14 +141,8 @@ const Index = () => {
                 </div>
 
                 <div className="rounded-2xl border border-border bg-background/80 p-4 md:p-5 shadow-sm">
-                  <div className="flex items-center justify-between gap-3 mb-3">
-                    <div>
-                      <h3 className="text-base font-semibold text-foreground">Telegram</h3>
-                      <p className="text-xs text-muted-foreground">Fastest to start. Best if you want a cleaner bot-style flow.</p>
-                    </div>
-                    <span className="inline-flex items-center rounded-full bg-secondary px-2.5 py-1 text-[11px] font-medium text-foreground/80">
-                      Fastest to start
-                    </span>
+                  <div className="mb-3">
+                    <h3 className="text-base font-semibold text-foreground">Telegram</h3>
                   </div>
 
                   <Button
