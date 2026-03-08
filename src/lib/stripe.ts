@@ -19,18 +19,16 @@ const CHECKOUT_SUCCESS_URL = import.meta.env.VITE_APP_URL
   ? `${import.meta.env.VITE_APP_URL}/welcome`
   : 'https://talktobro.com/welcome';
 const CHECKOUT_CANCEL_URL = import.meta.env.VITE_APP_URL
-  ? `${import.meta.env.VITE_APP_URL}/trial`
-  : 'https://talktobro.com/trial';
+  ? `${import.meta.env.VITE_APP_URL}/pricing`
+  : 'https://talktobro.com/pricing';
 
-// Price IDs — set in env or use defaults
-const PRICE_MONTHLY = import.meta.env.VITE_STRIPE_PRICE_MONTHLY || '';
-const PRICE_ANNUAL = import.meta.env.VITE_STRIPE_PRICE_ANNUAL || '';
-
-export type SubscriptionPlan = 'monthly' | 'annual';
+export type SubscriptionPlan = 'starter' | 'pro' | 'elite';
+export type SubscriptionDuration = 1 | 3 | 6 | 12;
 
 export interface CheckoutConfig {
   userId: string;
   plan: SubscriptionPlan;
+  durationMonths: SubscriptionDuration;
   email?: string;
   trialContext?: TrialContext;
 }
@@ -42,7 +40,7 @@ export interface CheckoutConfig {
  * The frontend redirects the user to this URL.
  */
 export async function createCheckoutUrl(config: CheckoutConfig): Promise<string | null> {
-  const { userId, plan, email } = config;
+  const { userId, plan, durationMonths, email } = config;
 
   trackSubscriptionClicked(userId, plan);
 
@@ -55,10 +53,10 @@ export async function createCheckoutUrl(config: CheckoutConfig): Promise<string 
 
     const { data, error } = await supabase.functions.invoke('create-checkout-session', {
       body: {
-        userId,
+        user_id: userId,
         plan,
+        duration_months: durationMonths,
         email,
-        priceId: plan === 'monthly' ? PRICE_MONTHLY : PRICE_ANNUAL,
         successUrl: `${CHECKOUT_SUCCESS_URL}?session_id={CHECKOUT_SESSION_ID}`,
         cancelUrl: CHECKOUT_CANCEL_URL,
       },
@@ -88,24 +86,62 @@ export async function redirectToCheckout(config: CheckoutConfig): Promise<void> 
 
 // ─── Pricing Display ──────────────────────────────────────────────────────────
 
+export interface PlanPricing {
+  monthly: number;
+  label: string;
+  description: string;
+}
+
 export interface PricingInfo {
-  monthly: { price: string; priceNumeric: number; interval: string };
-  annual: { price: string; priceNumeric: number; interval: string; savings: string };
+  starter: PlanPricing;
+  pro: PlanPricing;
+  elite: PlanPricing;
+  durations: Array<{ months: number; discount: number; label: string }>;
 }
 
 export const PRICING: PricingInfo = {
-  monthly: {
-    price: '£9',
-    priceNumeric: 9,
-    interval: 'month',
+  starter: {
+    monthly: 9,
+    label: 'Starter',
+    description: 'Talk to Bro',
   },
-  annual: {
-    price: '£90',
-    priceNumeric: 90,
-    interval: 'year',
-    savings: '2 months free',
+  pro: {
+    monthly: 29,
+    label: 'Pro 5x',
+    description: '5x more usage than Starter',
   },
+  elite: {
+    monthly: 99,
+    label: 'Pro 20x',
+    description: '20x more usage than Starter',
+  },
+  durations: [
+    { months: 1, discount: 0, label: '1 month' },
+    { months: 3, discount: 0.1, label: '3 months' },
+    { months: 6, discount: 0.15, label: '6 months' },
+    { months: 12, discount: 0.25, label: '12 months' },
+  ],
 };
+
+/**
+ * Calculate the total price for a plan and duration.
+ */
+export function calculatePrice(plan: SubscriptionPlan, durationMonths: SubscriptionDuration): number {
+  const monthly = PRICING[plan].monthly;
+  const duration = PRICING.durations.find(d => d.months === durationMonths);
+  const discount = duration?.discount ?? 0;
+  return Math.round(monthly * durationMonths * (1 - discount) * 100) / 100;
+}
+
+/**
+ * Calculate savings for a plan and duration.
+ */
+export function calculateSavings(plan: SubscriptionPlan, durationMonths: SubscriptionDuration): number {
+  const monthly = PRICING[plan].monthly;
+  const fullPrice = monthly * durationMonths;
+  const discountedPrice = calculatePrice(plan, durationMonths);
+  return Math.round((fullPrice - discountedPrice) * 100) / 100;
+}
 
 // ─── Webhook Handlers (Server-Side) ────────────────────────────────────────────
 //
@@ -119,10 +155,11 @@ export const PRICING: PricingInfo = {
 export async function handleCheckoutCompleted(session: {
   customer: string;
   subscription: string;
-  metadata?: { userId?: string };
+  metadata?: { userId?: string; plan?: string };
   customer_email?: string;
 }): Promise<void> {
   const userId = session.metadata?.userId;
+  const plan = session.metadata?.plan || 'starter';
   if (!userId || !supabase) return;
 
   // Update user record
@@ -132,6 +169,7 @@ export async function handleCheckoutCompleted(session: {
       stripe_customer_id: session.customer,
       subscription_id: session.subscription,
       subscription_status: 'active',
+      subscription_plan: plan,
       updated_at: new Date().toISOString(),
     })
     .eq('id', userId);
@@ -145,7 +183,8 @@ export async function handleCheckoutCompleted(session: {
     })
     .eq('user_id', userId);
 
-  trackPaymentSuccess(userId, 'subscription', PRICING.monthly.priceNumeric);
+  const price = PRICING[plan as SubscriptionPlan]?.monthly ?? 9;
+  trackPaymentSuccess(userId, 'subscription', price);
 }
 
 /**
