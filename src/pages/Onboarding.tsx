@@ -337,7 +337,7 @@ Start my custom Bro checkout
                     {[
                       { id: 'starter', label: 'Starter', price: 'For the curious', badge: null },
                       { id: 'pro', label: 'Pro 5x', price: 'For the enthusiast', badge: 'Save 36%' },
-                      { id: 'elite', label: 'Pro 20x', price: 'For the power user', badge: 'Save 83%' },
+                      { id: 'elite', label: 'Pro 20x', price: 'For the power user', badge: 'Save 45%' },
                     ].map((p) => (
                       <button
                         key={p.id}

@@ -1,4 +1,4 @@
-import { Brain, Moon, LayoutGrid, Play, Puzzle, Server, Sparkles } from 'lucide-react';
+import { Brain, Moon, LayoutGrid, Play, Puzzle, Server, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -98,7 +98,7 @@ const Pricing = () => {
                   <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-medium">Save 36%</div>
                 ) : null}
                 {plan.id === 'elite' ? (
-                  <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-medium">Save 83%</div>
+                  <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-medium">Save 45%</div>
                 ) : null}
                 {plan.featured ? (
                   <div className="inline-block mb-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium">Recommended</div>
@@ -118,7 +118,7 @@ const Pricing = () => {
                       : feature.icon === 'Play' ? Play
                       : feature.icon === 'Puzzle' ? Puzzle
                       : feature.icon === 'Server' ? Server
-                      : Sparkles;
+                      : Check;
                     return (
                       <li key={feature.text} className="flex items-center gap-2 text-foreground">
                         <IconComponent className="w-4 h-4 text-accent" />
