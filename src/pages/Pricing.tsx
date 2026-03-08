@@ -81,9 +81,9 @@ const Pricing = () => {
                 id: 'elite',
                 name: 'Pro 20x',
                 price: '£99',
-                blurb: '20x more usage than Pro',
+                blurb: '20x more usage than Pro 5x',
                 features: [
-                  'Everything in Pro',
+                  'Everything in Pro 5x',
                 ],
                 cta: 'Start Pro 20x trial',
                 featured: false,
