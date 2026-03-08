@@ -40,7 +40,8 @@ const Onboarding = () => {
   const billingTotal = Math.round(monthlyPrice * formData.durationMonths * (1 - discount) * 100) / 100;
   const fullTotal = monthlyPrice * formData.durationMonths;
   const savings = Math.round((fullTotal - billingTotal) * 100) / 100;
-  const paymentCta = `Start ${formData.plan.charAt(0).toUpperCase() + formData.plan.slice(1)} trial`;
+  const planLabels: Record<string, string> = { starter: 'Started', pro: 'Pro 5x', elite: 'Pro 20x' };
+  const paymentCta = formData.plan === 'starter' ? 'Get Started' : `Get ${planLabels[formData.plan]}`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -63,7 +63,7 @@ const Pricing = () => {
                   { text: 'Extensible skills for your workflow', icon: 'Puzzle' },
                   { text: 'Your infrastructure, your sovereignty', icon: 'Heart' },
                 ],
-                cta: 'Start Starter trial',
+                cta: 'Get Started',
                 featured: false,
               },
               {
@@ -74,7 +74,7 @@ const Pricing = () => {
                 features: [
                   { text: 'Everything in Starter', icon: 'Check' },
                 ],
-                cta: isPro ? 'Current Plan' : 'Start Pro 5x trial',
+                cta: isPro ? 'Current Plan' : 'Get Pro 5x',
                 featured: true,
               },
               {
@@ -85,7 +85,7 @@ const Pricing = () => {
                 features: [
                   { text: 'Everything in Pro 5x', icon: 'Check' },
                 ],
-                cta: 'Start Pro 20x trial',
+                cta: 'Get Pro 20x',
                 featured: false,
               },
             ].map((plan) => (
