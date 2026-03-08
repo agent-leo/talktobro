@@ -1,6 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, Mic, BookOpen, AlertTriangle, Sparkles, Code2, Zap } from 'lucide-react';
+import {
+  Search,
+  Mic,
+  BookOpen,
+  AlertTriangle,
+  Bot,
+  Brain,
+  ArrowRight,
+  Smartphone,
+  MonitorSmartphone,
+  MessageSquare,
+  Globe,
+  FileCode,
+  Puzzle,
+} from 'lucide-react';
 import talktobroLogo from '@/assets/talktobro-logo-new.png';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,6 +23,7 @@ import { conversationFlows } from '@/data/conversationFlows';
 import { useAuth } from '@/contexts/AuthContext';
 import { LinkAccountDialog } from '@/components/LinkAccountDialog';
 import { Header } from '@/components/Header';
+import { Shoutouts } from '@/components/Shoutouts';
 
 const Index = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,6 +31,10 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const { user, isAnonymous } = useAuth();
+
+  /** White logos invert in light mode to black; black logos invert in dark mode to white */
+  const logoClass = (url?: string) =>
+    `w-5 h-5${url?.includes('ffffff') || url?.includes('white') ? ' invert dark:invert-0' : url?.includes('111111') ? ' dark:invert' : ''}`;
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,83 +71,169 @@ const Index = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
       {/* Hero Section */}
-      <main className="flex-1 flex flex-col justify-center px-6 py-16">
+      <main className="flex-1 flex flex-col justify-center px-6 py-12">
         <div className="max-w-2xl mx-auto w-full">
           {/* Logo / Title */}
-          <div className="mb-8 animate-fade-in">
+          <div className="mb-6 animate-fade-in">
             <div className="flex items-center gap-3 mb-4 group cursor-default">
               <img 
                 src={talktobroLogo} 
                 alt="TalkToBro" 
-                className="h-16 md:h-20 transition-transform duration-300 group-hover:scale-110"
+                className="h-14 md:h-16 transition-transform duration-300 group-hover:scale-110"
               />
-              <span className="font-serif text-3xl md:text-4xl text-foreground transition-colors duration-300 group-hover:text-accent">TalkToBro</span>
+              <span className="font-serif text-2xl md:text-3xl text-foreground transition-colors duration-300 group-hover:text-foreground">TalkToBro</span>
             </div>
-            <p className="text-muted-foreground text-lg">
-              Build your own AI agent. Fast.
+          </div>
+
+          {/* Core Value Prop */}
+          <div className="mb-8 space-y-3 animate-fade-in-delay-1">
+            <h1 className="text-2xl md:text-4xl text-foreground leading-tight font-semibold">
+              Bro that actually does things.
+            </h1>
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">
+              Clears your inbox. Sends emails. Manages your calendar. Checks you in for flights. 
+              All from WhatsApp, Telegram, or any chat app you already use.
             </p>
           </div>
 
-          {/* Core Message */}
-          <div className="mb-8 space-y-4 animate-fade-in-delay-1">
-            <p className="text-2xl md:text-3xl text-foreground leading-tight font-medium">
-              Stop chatting with AI. Start deploying it.
-            </p>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
-              I’m Leo. I help you build a working agent for your real workflow — leads, follow-ups, ops, and execution.
-            </p>
+          {/* Shoutouts Carousel - moved up */}
+          <div className="mb-10 animate-fade-in-delay-2">
+            <Shoutouts />
           </div>
 
-          {/* Primary CTA hierarchy (above the fold) */}
-          <div className="mb-8 animate-fade-in-delay-2 space-y-3">
+          {/* QR Codes - Try Free */}
+          <div className="mb-10 animate-fade-in-delay-2">
+            <div className="rounded-2xl border border-border bg-secondary/20 p-5 md:p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Smartphone className="w-5 h-5 text-accent" />
+                <h2 className="text-lg font-semibold text-foreground">Try Bro free</h2>
+              </div>
+              <p className="text-sm text-muted-foreground mb-6">Scan with WhatsApp or Telegram. Start talking in 60 seconds.</p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <div>
+                  <div className="rounded-xl border-2 border-foreground/20 p-2 shadow-lg bg-white mb-4">
+                    <div className="aspect-square overflow-hidden rounded-lg">
+                      <img
+                        src="/bro-whatsapp-qr.jpg"
+                        alt="Bro WhatsApp QR code"
+                        className="w-full h-full object-cover object-center"
+                      />
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={() => window.open('https://wa.me/447361665083?text=Hey%20Bro', '_blank')}
+                    className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+                  >
+                    Open in WhatsApp
+                  </Button>
+                </div>
+
+                <div>
+                  <div className="rounded-xl border-2 border-foreground/20 p-2 shadow-lg bg-white mb-4">
+                    <div className="aspect-square overflow-hidden rounded-lg">
+                      <img
+                        src="/bro-telegram-qr.jpg"
+                        alt="Bro Telegram QR code"
+                        className="w-full h-full object-cover object-center"
+                      />
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={() => window.open('https://t.me/talk2brobot?start=heybro', '_blank')}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Open in Telegram
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* What's Bro */}
+          <div className="mb-10 animate-fade-in-delay-3">
+            <h2 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
+              <Bot className="w-5 h-5 text-accent" />
+              What's Bro?
+            </h2>
+            <p className="text-sm text-foreground/80 mb-4">
+              Bro runs on your device. Lives in your chats. Remembers context. Gets real work done.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+              {[
+                { icon: MonitorSmartphone, text: 'Runs on your device' },
+                { icon: MessageSquare, text: 'Works across chat apps' },
+                { icon: Brain, text: 'Persistent memory' },
+                { icon: Globe, text: 'Browser automation' },
+                { icon: FileCode, text: 'File + system actions' },
+                { icon: Puzzle, text: 'Skills & plugins' },
+              ].map((item) => (
+                <div key={item.text} className="flex items-center gap-3 text-sm text-foreground/90 py-1">
+                  <item.icon className="w-4 h-4 text-accent shrink-0" />
+                  <span>{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Single Clean CTA */}
+          <div className="mb-12 animate-fade-in-delay-3">
+            <p className="text-center text-sm text-muted-foreground mb-4">Want help talking to Bro?</p>
             <Button 
-              onClick={() => navigate('/onboarding')} 
-              variant="primary"
-              className="w-full gap-2 text-base"
+              onClick={() => navigate('/book-call')} 
+              variant="outline"
+              className="w-full"
             >
-              Start Pro now — £15/month
+              Talk to a real human
             </Button>
-            <div className="grid grid-cols-2 gap-2">
-              <Button 
-                onClick={() => navigate('/pricing')} 
-                variant="outline"
-                className="w-full"
-              >
-                See pricing
-              </Button>
-              <Button 
-                onClick={() => navigate('/onboarding')} 
-                variant="secondary"
-                className="w-full"
-              >
-                Build my first agent
-              </Button>
-            </div>
-            <p className="text-xs text-center text-muted-foreground">Cancel anytime. Message Leo on WhatsApp after checkout.</p>
           </div>
 
-          {/* Value Props */}
-          <div className="mb-12 grid gap-3 animate-fade-in-delay-2">
-            <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30">
-              <Sparkles className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-medium text-foreground">Prompting that actually works</h3>
-                <p className="text-sm text-muted-foreground">No fluff. Better outputs, immediately.</p>
-              </div>
+          {/* Works with everything */}
+          <div className="mb-10 animate-fade-in-delay-4">
+            <h2 className="text-lg font-semibold text-foreground mb-4 text-center">
+              Works with everything
+            </h2>
+            <div className="flex flex-wrap justify-center gap-2 mb-6">
+              {[
+                { name: 'WhatsApp', logo: 'https://cdn.simpleicons.org/whatsapp/25D366' },
+                { name: 'Telegram', logo: 'https://cdn.simpleicons.org/telegram/26A5E4' },
+                { name: 'Discord', logo: 'https://cdn.simpleicons.org/discord/5865F2' },
+                { name: 'Slack', logo: 'https://www.google.com/s2/favicons?domain=slack.com&sz=64' },
+                { name: 'Signal', logo: 'https://cdn.simpleicons.org/signal/3A76F0' },
+                { name: 'iMessage', logo: 'https://cdn.simpleicons.org/apple/ffffff' },
+                { name: 'Claude', logo: 'https://cdn.simpleicons.org/anthropic/FF6B35' },
+                { name: 'GPT', logo: 'https://cdn.simpleicons.org/openai/white', fallbackLogo: 'https://www.google.com/s2/favicons?domain=openai.com&sz=64' },
+                { name: 'Spotify', logo: 'https://cdn.simpleicons.org/spotify/1DB954' },
+                { name: 'Hue', logo: 'https://cdn.simpleicons.org/philipshue/ffffff' },
+                { name: 'Obsidian', logo: 'https://cdn.simpleicons.org/obsidian/7C3AED' },
+                { name: 'Twitter', logo: 'https://cdn.simpleicons.org/x/ffffff' },
+                { name: 'Browser', logo: 'https://cdn.simpleicons.org/googlechrome/4285F4' },
+                { name: 'Gmail', logo: 'https://cdn.simpleicons.org/gmail/EA4335' },
+                { name: 'GitHub', logo: 'https://cdn.simpleicons.org/github/ffffff' },
+              ].map((item) => (
+                <div key={item.name} className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/30 border border-border/40">
+                  {item.fallbackLogo ? (
+                    <>
+                      <img src={item.logo} alt={item.name} className={`${logoClass(item.logo)} hidden sm:block`} loading="lazy" />
+                      <img src={item.fallbackLogo} alt={item.name} className="w-5 h-5 sm:hidden" loading="lazy" />
+                    </>
+                  ) : (
+                    <img src={item.logo} alt={item.name} className={logoClass(item.logo)} loading="lazy" />
+                  )}
+                  <span className="text-sm text-foreground/80">{item.name}</span>
+                </div>
+              ))}
             </div>
-            <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30">
-              <Code2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-medium text-foreground">Real backend integration</h3>
-                <p className="text-sm text-muted-foreground">Stripe, GitHub, Vercel, messaging, automation.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30">
-              <Zap className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-medium text-foreground">Agent shipped, not theorised</h3>
-                <p className="text-sm text-muted-foreground">You leave with a working system, not notes.</p>
-              </div>
+            <div className="text-center">
+              <Link 
+                to="/integrations"
+                className="inline-flex items-center gap-1 text-accent hover:underline font-medium"
+              >
+                View all 50+ integrations <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
 
@@ -154,13 +259,13 @@ const Index = () => {
           )}
 
           {/* Voice Recording CTA */}
-          <div className="mb-12 animate-fade-in-delay-2">
+          <div className="mb-8 animate-fade-in-delay-2">
             <Button 
               onClick={() => navigate('/record')} 
-              variant="outline"
-              className="w-full gap-3"
+              variant="ghost"
+              className="w-full gap-2 text-muted-foreground hover:text-foreground"
             >
-              <Mic className="w-5 h-5" />
+              <Mic className="w-4 h-4" />
               Record a voice note
             </Button>
             {user && (
@@ -175,85 +280,45 @@ const Index = () => {
             )}
           </div>
 
-          {/* Text-based Entry Points */}
-          <div className="space-y-4 mb-8 animate-fade-in-delay-3">
-            <p className="text-sm text-muted-foreground uppercase tracking-wide mb-6">
-              What brings you here?
-            </p>
-            
-            {[
-              'money',
-              'clarity',
-              'workflows',
-              'stack',
-              'prompting',
-              'custom',
-              'mindset',
-            ].map((flowId, index) => {
-              const flow = conversationFlows[flowId];
-              if (!flow) return null;
-
-              return (
-                <Button
-                  key={flow.id}
-                  variant="entry"
-                  onClick={() => setSelectedFlow(flow.id)}
-                  className={`animate-fade-in`}
-                  style={{ animationDelay: `${0.3 + index * 0.1}s` }}
-                >
-                  <span className="font-medium">{flow.title}</span>
-                </Button>
-              );
-            })}
-          </div>
-
-          {/* Search Bar */}
+          {/* Entry Points */}
           <div className="mb-8 animate-fade-in-delay-3">
-            <form onSubmit={handleSearch} className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search terms, feelings, or ideas..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-secondary/30 border-border/50 focus:bg-secondary/50 transition-colors"
-              />
-            </form>
-          </div>
-
-          {/* A-Z Link */}
-          <div className="mb-16 animate-fade-in-delay-3">
-            <Link 
-              to="/a-z"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm border-b border-border/50 hover:border-foreground/30 pb-0.5"
-            >
-              Browse the full A to Z →
-            </Link>
-          </div>
-
-          {/* Transparency Note */}
-          <div className="text-sm text-muted-foreground space-y-3 animate-fade-in-delay-4">
-            <p className="font-medium text-foreground mb-2">Radical Transparency</p>
-            <p>
-              Everything we teach is what we use. I connected my own Stripe, GitHub, 
-              Vercel, and X accounts. The blueprint isn't theoretical — it's proven.
+            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-4 text-center">
+              Or start here
             </p>
-            <p>
-              If you need urgent support, use our Support & Safety page and contact a professional service.
-            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {[
+                'money',
+                'clarity',
+                'workflows',
+                'stack',
+                'custom',
+              ].map((flowId) => {
+                const flow = conversationFlows[flowId];
+                if (!flow) return null;
+                return (
+                  <Button
+                    key={flow.id}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSelectedFlow(flow.id)}
+                  >
+                    {flow.title}
+                  </Button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="px-6 py-8 border-t border-border">
-        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>© 2025 TalkToBro</p>
+      <footer className="px-6 py-6 border-t border-border">
+        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-muted-foreground">
+          <p>© 2026 TalkToBro</p>
           <div className="flex items-center gap-4">
             <Link to="/crisis" className="hover:text-foreground transition-colors">
-              Support & Safety
+              Support
             </Link>
-            <span className="hidden sm:inline">·</span>
             <Link to="/pricing" className="hover:text-foreground transition-colors">
               Pricing
             </Link>
