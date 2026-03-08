@@ -13,9 +13,9 @@ const corsHeaders = {
 
 const TRIAL_DESC =
   '24-hour free trial. Full access to Bro via WhatsApp. Upgrade anytime to keep the conversation going.';
-const STARTER_DESC = 'Starter plan — Try Bro properly. Great for first wins and getting momentum.';
-const PRO_DESC = 'Pro plan — Your operational right hand. Advanced workflows, faster turnaround. £29/month after trial.';
-const ELITE_DESC = 'Elite plan — Concierge Bro for serious builders. Bespoke strategy, playbooks, priority escalation.';
+const STARTER_DESC = 'Talk to Bro. Memory that doesn\'t reset. Bro works while you sleep. One Bro, every channel.';
+const PRO_DESC = 'Pro 5x — 5x more usage than Starter. Everything in Starter.';
+const ELITE_DESC = 'Pro 20x — 20x more usage than Starter. Everything in Pro 5x.';
 const TRIAL_PRODUCT_NAME = 'TalkToBro Trial';
 
 serve(async (req) => {

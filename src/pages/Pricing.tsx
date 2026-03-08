@@ -1,4 +1,4 @@
-import { Brain, Moon, LayoutGrid, Play, Puzzle, Server, Check, Sparkles } from 'lucide-react';
+import { Brain, Moon, Bot, Play, Puzzle, Server, Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -58,7 +58,7 @@ const Pricing = () => {
                 features: [
                   { text: 'Memory that doesn\'t reset', icon: 'Brain' },
                   { text: 'Bro works while you sleep', icon: 'Moon' },
-                  { text: 'One Bro, every channel', icon: 'LayoutGrid' },
+                  { text: 'One Bro, every channel', icon: 'Bot' },
                   { text: 'Actual execution, not just talk', icon: 'Play' },
                   { text: 'Extensible skills for your workflow', icon: 'Puzzle' },
                   { text: 'Your infrastructure, your sovereignty', icon: 'Server' },
@@ -114,7 +114,7 @@ const Pricing = () => {
                   {plan.features.map((feature) => {
                     const IconComponent = feature.icon === 'Brain' ? Brain
                       : feature.icon === 'Moon' ? Moon
-                      : feature.icon === 'LayoutGrid' ? LayoutGrid
+                      : feature.icon === 'Bot' ? Bot
                       : feature.icon === 'Play' ? Play
                       : feature.icon === 'Puzzle' ? Puzzle
                       : feature.icon === 'Server' ? Server
