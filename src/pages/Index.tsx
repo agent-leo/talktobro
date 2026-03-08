@@ -104,15 +104,36 @@ const Index = () => {
           {/* QR Codes - Try Free */}
           <div className="mb-10 animate-fade-in-delay-2">
             <div className="rounded-2xl border border-border bg-secondary/20 p-5 md:p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <Smartphone className="w-5 h-5 text-accent" />
-                <h2 className="text-lg font-semibold text-foreground">Try Bro free</h2>
+              <div className="text-center max-w-xl mx-auto mb-6">
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <Smartphone className="w-5 h-5 text-accent" />
+                  <h2 className="text-lg font-semibold text-foreground">Choose your channel</h2>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Start talking to Bro on WhatsApp or Telegram. Same Bro, same brain, whichever app you already prefer.
+                </p>
               </div>
-              <p className="text-sm text-muted-foreground mb-6">Scan with WhatsApp or Telegram. Start talking in 60 seconds.</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                <div>
-                  <div className="rounded-xl border-2 border-foreground/20 p-2 shadow-lg bg-white mb-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
+                <div className="rounded-2xl border border-border bg-background/80 p-4 md:p-5 shadow-sm">
+                  <div className="flex items-center justify-between gap-3 mb-3">
+                    <div>
+                      <h3 className="text-base font-semibold text-foreground">WhatsApp</h3>
+                      <p className="text-xs text-muted-foreground">Most familiar. Best if you already live in WhatsApp.</p>
+                    </div>
+                    <span className="inline-flex items-center rounded-full bg-accent/10 px-2.5 py-1 text-[11px] font-medium text-accent">
+                      Most familiar
+                    </span>
+                  </div>
+
+                  <Button
+                    onClick={() => window.open('https://wa.me/447361665083?text=Hey%20Bro', '_blank')}
+                    className="w-full mb-4 bg-accent text-accent-foreground hover:bg-accent/90"
+                  >
+                    Open in WhatsApp
+                  </Button>
+
+                  <div className="rounded-xl border-2 border-foreground/20 p-2 shadow-lg bg-white">
                     <div className="aspect-square overflow-hidden rounded-lg">
                       <img
                         src="/bro-whatsapp-qr.jpg"
@@ -122,16 +143,29 @@ const Index = () => {
                     </div>
                   </div>
 
-                  <Button
-                    onClick={() => window.open('https://wa.me/447361665083?text=Hey%20Bro', '_blank')}
-                    className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
-                  >
-                    Open in WhatsApp
-                  </Button>
+                  <p className="text-[11px] text-muted-foreground text-center mt-3">Scan from desktop, tap the button on mobile.</p>
                 </div>
 
-                <div>
-                  <div className="rounded-xl border-2 border-foreground/20 p-2 shadow-lg bg-white mb-4">
+                <div className="rounded-2xl border border-border bg-background/80 p-4 md:p-5 shadow-sm">
+                  <div className="flex items-center justify-between gap-3 mb-3">
+                    <div>
+                      <h3 className="text-base font-semibold text-foreground">Telegram</h3>
+                      <p className="text-xs text-muted-foreground">Fastest to start. Best if you want a cleaner bot-style flow.</p>
+                    </div>
+                    <span className="inline-flex items-center rounded-full bg-secondary px-2.5 py-1 text-[11px] font-medium text-foreground/80">
+                      Fastest to start
+                    </span>
+                  </div>
+
+                  <Button
+                    onClick={() => window.open('https://t.me/talk2brobot?start=heybro', '_blank')}
+                    variant="outline"
+                    className="w-full mb-4"
+                  >
+                    Open in Telegram
+                  </Button>
+
+                  <div className="rounded-xl border-2 border-foreground/20 p-2 shadow-lg bg-white">
                     <div className="aspect-square overflow-hidden rounded-lg">
                       <img
                         src="/bro-telegram-qr.jpg"
@@ -141,13 +175,7 @@ const Index = () => {
                     </div>
                   </div>
 
-                  <Button
-                    onClick={() => window.open('https://t.me/talk2brobot?start=heybro', '_blank')}
-                    variant="outline"
-                    className="w-full"
-                  >
-                    Open in Telegram
-                  </Button>
+                  <p className="text-[11px] text-muted-foreground text-center mt-3">Scan from desktop, tap the button on mobile.</p>
                 </div>
               </div>
             </div>
