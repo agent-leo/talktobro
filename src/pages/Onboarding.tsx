@@ -185,7 +185,7 @@ const Onboarding = () => {
             {/* Step 1: Complete checkout (Primary) */}
             <div className="bg-accent/5 border border-accent/20 rounded-xl p-6 mb-6">
               <h2 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-accent text-white text-sm flex items-center justify-center">1</span>
+                <span className="w-6 h-6 rounded-full bg-accent text-accent-foreground text-sm flex items-center justify-center font-medium">1</span>
 Start your personalised 24-hour trial in Stripe
               </h2>
               <p className="text-sm text-muted-foreground mb-4">
