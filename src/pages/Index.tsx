@@ -197,7 +197,7 @@ const Index = () => {
           </div>
 
           {/* Single Clean CTA */}
-          <div className="mb-12 animate-fade-in-delay-3">
+          <div className="mb-12 animate-fade-in-delay-3 max-w-3xl mx-auto">
             <p className="text-center text-sm text-muted-foreground mb-4">Want help talking to Bro?</p>
             <Button 
               onClick={() => navigate('/book-call')} 
