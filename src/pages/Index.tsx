@@ -8,7 +8,7 @@ import {
   Bot,
   Brain,
   ArrowRight,
-  Smartphone,
+  ScanLine,
   MonitorSmartphone,
   MessageSquare,
   Globe,
@@ -106,7 +106,7 @@ const Index = () => {
             <div className="rounded-2xl border border-border bg-secondary/20 p-5 md:p-6">
               <div className="text-center max-w-xl mx-auto mb-6">
                 <div className="flex items-center justify-center gap-2 mb-3">
-                  <Smartphone className="w-5 h-5 text-accent" />
+                  <ScanLine className="w-5 h-5 text-accent" />
                   <h2 className="text-lg font-semibold text-foreground">Choose your channel</h2>
                 </div>
                 <p className="text-sm text-muted-foreground">

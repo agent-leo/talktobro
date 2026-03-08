@@ -40,7 +40,7 @@ const Pricing = () => {
           {/* Header */}
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-serif text-foreground mb-4">
-              Choose your Bro
+              Go Pro Bro
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Start with a 24-hour trial, talk to Bro.
