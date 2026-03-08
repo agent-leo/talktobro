@@ -149,8 +149,7 @@ const Index = () => {
 
                   <Button
                     onClick={() => window.open('https://t.me/talk2brobot?start=heybro', '_blank')}
-                    variant="outline"
-                    className="w-full mb-4"
+                    className="w-full mb-4 bg-accent text-accent-foreground hover:bg-accent/90"
                   >
                     Open in Telegram
                   </Button>
@@ -202,8 +201,7 @@ const Index = () => {
             <p className="text-center text-sm text-muted-foreground mb-4">Want help talking to Bro?</p>
             <Button 
               onClick={() => navigate('/book-call')} 
-              variant="outline"
-              className="w-full"
+              className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
             >
               Talk to a real human
             </Button>
