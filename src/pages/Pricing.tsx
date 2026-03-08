@@ -1,4 +1,4 @@
-import { Brain, Moon, Bot, Play, Puzzle, Heart, Target, AudioLines, CheckCircle2, PersonStanding, Check, Sparkles } from 'lucide-react';
+import { Brain, Moon, Bot, Play, Puzzle, Heart, Target, AudioLines, Handshake, PersonStanding, Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -58,7 +58,7 @@ const Pricing = () => {
                 features: [
                   { text: 'Voice-first interface', icon: 'AudioLines' },
                   { text: 'Learns you over time', icon: 'PersonStanding' },
-                  { text: 'Accountability partner', icon: 'CheckCircle2' },
+                  { text: 'Accountability partner', icon: 'Handshake' },
                   { text: 'One Bro, every channel', icon: 'Bot' },
                   { text: 'Bro works while you sleep', icon: 'Moon' },
                   { text: 'Memory that doesn\'t reset', icon: 'Brain' },
@@ -124,7 +124,7 @@ const Pricing = () => {
                       : feature.icon === 'Heart' ? Heart
                       : feature.icon === 'Target' ? Target
                       : feature.icon === 'AudioLines' ? AudioLines
-                      : feature.icon === 'CheckCircle2' ? CheckCircle2
+                      : feature.icon === 'Handshake' ? Handshake
                       : feature.icon === 'PersonStanding' ? PersonStanding
                       : Check;
                     return (
