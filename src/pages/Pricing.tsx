@@ -70,10 +70,9 @@ const Pricing = () => {
                 id: 'pro',
                 name: 'Pro 5x',
                 price: '£29',
-                blurb: 'Your operational right hand',
+                blurb: '5x more usage than Starter',
                 features: [
                   'Everything in Starter',
-                  '5x more usage than Starter',
                 ],
                 cta: isPro ? 'Current Plan' : 'Start Pro 5x trial',
                 featured: true,
