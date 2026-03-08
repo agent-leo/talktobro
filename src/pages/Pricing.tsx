@@ -74,10 +74,6 @@ const Pricing = () => {
                 features: [
                   'Everything in Starter',
                   '5x more usage than Starter',
-                  'Persistent memory (projects/people/decisions)',
-                  'Automations + workflows (Bro does it)',
-                  'Integrations: Calendar + Email + Docs',
-                  'Priority response lane',
                 ],
                 cta: isPro ? 'Current Plan' : 'Start Pro 5x trial',
                 featured: true,
