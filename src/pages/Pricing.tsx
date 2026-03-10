@@ -1,4 +1,4 @@
-import { Brain, Star, Bot, Play, Puzzle, Heart, Key, AudioLines, Handshake, PersonStanding, Check, Sparkles } from 'lucide-react';
+import { Brain, Star, Bot, Play, Puzzle, Heart, Key, AudioLines, Handshake, PersonStanding, Check, Sparkles, Bed, BedDouble } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -60,7 +60,7 @@ const Pricing = () => {
                   { text: 'Learns you over time', icon: 'PersonStanding' },
                   { text: 'Accountability partner', icon: 'Handshake' },
                   { text: 'One Bro, every channel', icon: 'Bot' },
-                  { text: 'Bro works while you sleep', icon: 'Star' },
+                  { text: 'Bro works while you sleep', icon: 'BedDouble' },
                   { text: 'Memory that doesn\'t reset', icon: 'Brain' },
                   { text: 'Proactive, not just reactive', icon: 'Key' },
                   { text: 'Actual execution, not just talk', icon: 'Play' },
@@ -126,6 +126,8 @@ const Pricing = () => {
                       : feature.icon === 'AudioLines' ? AudioLines
                       : feature.icon === 'Handshake' ? Handshake
                       : feature.icon === 'PersonStanding' ? PersonStanding
+                      : feature.icon === 'Bed' ? Bed
+                      : feature.icon === 'BedDouble' ? BedDouble
                       : Check;
                     return (
                       <li key={feature.text} className="flex items-center gap-2 text-foreground">
@@ -150,16 +152,16 @@ What You Get
             <div className="space-y-4">
               {[
                 {
-                  title: 'Execution Systems',
-                  desc: 'Build workflows that actually run: inbox handling, follow-ups, calendar actions, reminders, and ops execution.',
+                  title: 'Your time back',
+                  desc: 'Bro handles the busywork. Monitoring, reminders, scheduling, data pulling. You focus on the decisions, not the drudgery.',
                 },
                 {
-                  title: 'Real Integrations',
-                  desc: 'Connect Bro to your real stack: email, calendar, docs, CRM, payments, repos, and automations.',
+                  title: 'Action and advice',
+                  desc: "Most AI just chats. Bro actually does things. Books your calendar, sends the emails, runs your crons, deploys your code.",
                 },
                 {
-                  title: 'Your Own Agent Stack',
-                  desc: 'Get the full setup playbook to run your own production-grade agent with memory, tools, and guardrails.',
+                  title: 'Peace of mind',
+                  desc: "Something's watching your back 24/7 and actually getting stuff done while you sleep.",
                 },
               ].map((item) => (
                 <div key={item.title} className="p-4 rounded-lg bg-secondary/30">
@@ -191,7 +193,7 @@ What You Get
               {[
                 {
                   q: 'What does Pro include?',
-                  a: 'Persistent memory, automations/workflows (Bro does it, not just suggests it), Calendar + Email + Docs integrations, higher usage, and a priority response lane.',
+                  a: "Everything in Starter, plus 5x the usage. More messages, more crons, more automation runs. Or Pro 20x for 20x Starter usage.",
                 },
                 {
                   q: 'Can I cancel anytime?',
@@ -199,11 +201,43 @@ What You Get
                 },
                 {
                   q: 'How fast can I get value?',
-                  a: 'Day one for quick wins. Pro users typically have automations running within a few days.',
+                  a: 'Day one for quick wins. Pro users typically have automations running within a few hours.',
                 },
                 {
                   q: 'Is this theory or implementation?',
                   a: 'Implementation. The goal is a working system in your actual workflow, not a folder of notes.',
+                },
+                {
+                  q: 'What is OpenClaw?',
+                  a: "The infrastructure powering Bro. It's our chief-of-staff AI platform — runs locally or in your cloud, connects to Telegram/WhatsApp/Discord/iMessage, and remembers everything.",
+                },
+                {
+                  q: 'How is this different from ChatGPT?',
+                  a: "ChatGPT resets every conversation. Bro remembers everything, works 24/7 while you sleep, and actually executes tasks — not just chat. No account needed. Just message Bro on WhatsApp or Telegram.",
+                },
+                {
+                  q: 'Is my data secure?',
+                  a: 'Yes. Everything runs locally or on your own cloud. No third-party servers store your conversations unless you explicitly configure it that way.',
+                },
+                {
+                  q: 'Do I need to code?',
+                  a: "Not for basic use. Download WhatsApp or open Telegram, message Bro, done. No CLI, no config, no terminal.",
+                },
+                {
+                  q: 'What channels does Bro work on?',
+                  a: 'Telegram, WhatsApp, Discord, and iMessage. Your Bro is available wherever you are.',
+                },
+                {
+                  q: 'Can I run Bro on my own server?',
+                  a: "Yes — and that's the point. Start on our hosted version. When you're ready, migrate to your own OpenClaw instance running locally. Your data, your hardware, your sovereignty.",
+                },
+                {
+                  q: "Why 'Bro'?",
+                  a: "Because AI shouldn't feel like talking to a boffin with complex jargon. It should feel like messaging a mate who happens to be an AI. Human. Relatable. On your level.",
+                },
+                {
+                  q: "What's the relationship between TalkToBro and Agentive AI Consulting?",
+                  a: "TalkToBro is our consumer product — anyone can sign up via WhatsApp or Telegram. Agentive AI Consulting is our B2B practice, deploying custom AI agents for SMEs and coaches. Think of TalkToBro as the front door.",
                 },
               ].map((faq) => (
                 <div key={faq.q} className="p-4 rounded-lg bg-secondary/30">
